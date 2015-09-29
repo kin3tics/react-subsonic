@@ -1,0 +1,1 @@
+This is a simple, yet elegant front-end to subsonic written in React.

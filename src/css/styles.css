@@ -1,0 +1,229 @@
+/* globals */
+main {
+    padding-left: 240px;
+}
+
+a {
+    color: black;
+    text-decoration: none;
+}
+a:visited {
+    color: black;
+}
+
+/* helper classes */
+
+.hidden { display:none; }
+
+.text-center {
+    text-align: center;
+}
+
+.unselectable {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.scrollable {
+    overflow: hidden;
+}
+
+.scrollable:hover {
+    overflow: auto;
+}
+
+.album-list.scrollable:hover {
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+/* side-nav */
+
+.side-nav {
+    position: absolute;
+    left:0;
+    top:0;
+    bottom:0;
+    padding: 0;
+}
+
+.artist-list {
+    height: calc(100% - 75px);
+}
+
+.indexes {
+    padding: 10px 20px;
+    text-align: center;
+    height: 75px;
+}
+
+/* overlay */
+
+.overlay-blur {
+  /* Absolutely position it, but stretch it to all four corners, then put it just behind #search's z-index */
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+  z-index: 9;
+  -webkit-filter: blur(10px);
+  filter: url('blur.svg#blur');
+  filter: blur(10px);
+}
+
+.overlay {
+    position: absolute;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    z-index: 10;
+}
+
+/* album-details */
+
+.album-details {
+    height: 100%;
+    width: 100%;
+    overflow: auto;
+    white-space: normal;
+}
+
+.album-details .artist-name {
+    margin-bottom: 10px;
+}
+
+.title-div, .song-div {
+    padding: 5px;
+}
+
+.song-div{    
+    position: absolute;
+    bottom: 10px;
+    top: 120px;
+    left: 0;
+    right: 310px;
+}
+
+.album-selected {
+    position: absolute;
+    height: calc(100% - 240px);
+    width: calc(100% - 240px);
+    margin-bottom: 0;
+    overflow: hidden;
+}
+
+.album-selected > div{
+	position: relative;
+}
+.album-selected > div:before{
+	content: "";
+	display: block;
+	padding-top: 100%;
+}
+
+.album-large {
+    overflow: hidden;
+    padding: 5px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+
+/* album-list */
+
+.album-list {
+    position: absolute;
+    bottom: 0;
+    height: 240px;
+    white-space: nowrap;
+    padding-top: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
+    width: calc(100% - 240px);
+    margin-bottom: 0px;
+}
+
+.album-list .album-small {
+    display: inline-block;
+    height: 200px;
+    width: 200px;
+    overflow: hidden;
+    margin:5px;
+    transition: all 1s ease;
+    background-size: 100%;
+}
+
+/* now-playing */
+
+.now-playing-container {
+    right:0;
+    position: absolute;
+    z-index:11;
+    height: calc(100% - 240px);
+    max-width: 310px;
+}
+
+.now-playing {
+    padding: 10px 5px;
+    height: 305px;
+}
+
+.now-playing img {
+    height: 200px;
+    width: 200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.now-playing h5 {
+    margin: 0;
+    height: 27px;
+    overflow: hidden;
+}
+
+.now-playing h6 {
+    margin: 0;
+    height: 22px;
+}
+
+/* playlist */
+.playlist-container {
+    position: absolute;
+    top: 305px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 10px;
+}
+
+.playlist-container ul {
+    margin: 0;
+    height: 100%;
+    position: relative;
+}
+
+.playlist-container li {
+    height: 22px;
+}
+
+.song-title {
+    display: inline-block;
+    width: 79%;
+    overflow:hidden;
+    white-space: nowrap;
+    position: absolute;
+}
+
+.song-duration {
+    display: inline-block;
+    position: absolute;
+    right: 0;
+}

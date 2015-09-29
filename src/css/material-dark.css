@@ -1,0 +1,107 @@
+body {
+    background-color: #3d3d3d;
+    color: #DDD;
+}
+
+.side-nav {
+    background-color: #202020;
+    height: 100%;
+}
+
+.side-nav.fixed a {
+    color: #DDD;
+}
+
+.side-nav a {
+    color: #DDD;
+    height: 24px;
+    line-height: 24px;
+}
+
+.side-nav a:hover {
+    color: #444;
+}
+
+.collection {
+    border-color: #131313;
+}
+
+.collection .collection-item {
+    background-color: #575757;
+    border-bottom: 1px solid #131313;
+}
+
+.collection a.collection-item {
+    color: #DDD;
+}
+
+.collection a.collection-item:hover {
+    color: #575757;
+    background-color: #b0b0b0;
+}
+
+.now-playing-container {
+    background-color: #202020;
+}
+
+.album-list {
+    background-color: #2a2a2a;
+}
+
+.playlist-container {
+    background-color: #343434;
+}
+
+.song:hover, .playlist-container li:hover, .indexes span:hover {
+    color: #ffbf00;
+    cursor: pointer;
+}
+
+.dragging {
+    color: #FFFFFF;
+}
+
+.current-playing {
+    color: #ffbf00;
+}
+
+.album-details {
+    background-color: #000;
+    color: #DDD;
+    opacity: 0.7;
+}
+
+.album-details ol {
+    color: #DDD;
+}
+
+.album-list .album-small {
+    background-Color:"#575757",
+}
+
+/* custom scrollbar */
+::-webkit-scrollbar {
+    width: 12px;
+}
+ 
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.25);
+}
+ 
+::-webkit-scrollbar-thumb {
+    background-color: rgba(0,0,0,0.35);
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.85); 
+}
+
+.playlist-container::-webkit-scrollbar-thumb {
+    background-color: rgba(0,0,0,0.15);
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.35);
+}
+
+.song-div::-webkit-scrollbar-thumb {
+    background-color: rgba(255,255,255,.25);
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(255,255,255,.2);
+}
