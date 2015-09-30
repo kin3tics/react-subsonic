@@ -1,41 +1,77 @@
 var xhr = require('../lib/xhr');
-var { API, APIUser, APIPass, APIVersion, APIClient } = require('../constants');
+var { APIVersion, APIClient } = require('../constants');
 var actions = require('../actions/AlbumActions');
-
-var requiredParams = `u=${APIUser}&p=${APIPass}&f=json&v=${APIVersion}&c=${APIClient}`;
+var userActions = require('../actions/UserActions');
+//Stores
 
 var ApiUtils = {
-  loadAlbums() {
-      xhr.getJSON(`${API}/rest/getAlbumList2?${requiredParams}&type=random`, (err, res) => {
+    getAPIParams() {
+        var settings = null;
+        if(localStorage.serverSettings !== undefined) {
+            settings = JSON.parse(localStorage.serverSettings);
+        }
+        if(settings === null) {
+            return { url: "", requiredParams: "" };
+        }
+        return {
+            url: settings.API,
+            requiredParams: `u=${settings.APIUser}&p=${settings.APIPass}&f=json&v=${APIVersion}&c=${APIClient}`
+        };
+    },
+    loadAlbums() {
+        var params = this.getAPIParams();
+        xhr.getJSON(`${params.url}/rest/getAlbumList2?${params.requiredParams}&type=random`, (err, res) => {
           actions.loadedAlbums(res['subsonic-response'].albumList2.album);
-      });
-  },
-  loadArtistAlbums(id) {
-      xhr.getJSON(`${API}/rest/getArtist?${requiredParams}&id=${id}`, (err, res) => {
+        });
+    },
+    loadArtistAlbums(id) {
+        var params = this.getAPIParams();
+        xhr.getJSON(`${params.url}/rest/getArtist?${params.requiredParams}&id=${id}`, (err, res) => {
           actions.loadedAlbums(id, res['subsonic-response'].artist.album);
-      });
-  },
-  loadAlbum(id) {
-      xhr.getJSON(`${API}/rest/getAlbum?${requiredParams}&id=${id}`, (err, res) => {
+        });
+    },
+    loadAlbum(id) {
+        var params = this.getAPIParams();
+        xhr.getJSON(`${params.url}/rest/getAlbum?${params.requiredParams}&id=${id}`, (err, res) => {
           actions.loadedAlbum(res['subsonic-response'].album);
-      });
-  },
-  getAlbumArtUrl(id) {
-      return `${API}/rest/getCoverArt?${requiredParams}&id=${id}`;
-  },
-  loadArtists() {
-      xhr.getJSON(`${API}/rest/getArtists?${requiredParams}`, (err, res) => {
+        });
+    },
+    getAlbumArtUrl(id) {
+        var params = this.getAPIParams();
+        return `${params.url}/rest/getCoverArt?${params.requiredParams}&id=${id}`;
+    },
+    loadArtists() {
+        var params = this.getAPIParams();
+        xhr.getJSON(`${params.url}/rest/getArtists?${params.requiredParams}`, (err, res) => {
           actions.loadedArtists(res['subsonic-response'].artists);
-      });
-  },
-  loadArtistDetails(id) {
-      xhr.getJSON(`${API}/rest/getArtistInfo2?${requiredParams}&id=${id}`, (err, res) => {
+        });
+    },
+    loadArtistDetails(id) {
+        var params = this.getAPIParams();
+        xhr.getJSON(`${params.url}/rest/getArtistInfo2?${params.requiredParams}&id=${id}`, (err, res) => {
           actions.loadedArtistDetails(res['subsonic-response'].artistInfo2);
-      });
-  },
-  getStreamingUrl(id) {
-      return `${API}/rest/stream?${requiredParams}&id=${id}`;
-  },
+        });
+    },
+    getStreamingUrl(id) {
+        var params = this.getAPIParams();
+        return `${params.url}/rest/stream?${params.requiredParams}&id=${id}`;
+    },
+    pingServer() {
+        var params = this.getAPIParams();
+        xhr.getJSON(`${params.url}/rest/ping?${params.requiredParams}`, (err, res) => {
+          if(err) {
+            userActions.pingReturn({
+                "status" : "failed",
+                "version" : null,
+                "error" : {
+                    "code" : 404,
+                    "message" : "The server could not be found."
+                }});
+          } else {
+            userActions.pingReturn(res['subsonic-response']);
+          }
+        });
+    }
 };
 
 module.exports = ApiUtils;

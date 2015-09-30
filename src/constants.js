@@ -1,7 +1,7 @@
 module.exports = {
-    API: "http://myserver.subsonic.org",
-    APIUser: "User", 
-    APIPass: "Password", 
+    API: "http://kin3tical.subsonic.org",
+    APIUser: "kin3tics", 
+    APIPass: "k2210357", 
     APIVersion: "1.12",
     APIClient: "React-Subsonic",
     ItemTypes: {
@@ -14,6 +14,11 @@ module.exports = {
         PlaylistEvents: {
             LOADED: "playlist.loaded",
             RELOAD: "playlist.reaload"
+        },
+        SettingsEvents: {
+            INVALID: "settings.invalid",
+            VALID: "settings.valid",
+            CHECKINGVALID: "settings.checkingvalid"
         }
     }
 }

@@ -67,7 +67,8 @@ var NowPlaying = React.createClass({
     movePlayHead (e) {
         var timeline = React.findDOMNode(this.refs.line);
         var playhead = React.findDOMNode(this.refs.playHead);
-        var newMargLeft = e.pageX - timeline.offsetLeft;
+        var timelineBox = timeline.getBoundingClientRect();
+        var newMargLeft = e.pageX - timelineBox.left;
         var timelineWidth = timeline.offsetWidth - playhead.offsetWidth;
         if (newMargLeft >= 0 && newMargLeft <= timelineWidth) {
             playhead.style.marginLeft = newMargLeft + "px";
@@ -81,9 +82,10 @@ var NowPlaying = React.createClass({
     },
     clickPercent(e) {
         var timeline = React.findDOMNode(this.refs.line);
+        var timelineBox = timeline.getBoundingClientRect();
         var playhead = React.findDOMNode(this.refs.playHead);
         var timelineWidth = timeline.offsetWidth - playhead.offsetWidth;
-        return (e.pageX - timeline.offsetLeft) / timelineWidth;
+        return (e.pageX - timelineBox.left) / timelineWidth;
     },
     timeUpdate(e) {
         var music = React.findDOMNode(this.refs.audioTracker);

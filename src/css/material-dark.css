@@ -3,8 +3,31 @@ a, a:visited {
 }
 
 body {
-    background-color: #3d3d3d;
+    /*background-color: #3d3d3d;*/
+    background-color: #575757;
     color: #DDD;
+}
+
+/* label focus color */
+.input-field input[type=text]:focus + label,
+.input-field input[type=password]:focus + label{
+ color: #ffbf00;
+}
+/* label underline focus color */
+.input-field input[type=text]:focus,
+.input-field input[type=password]:focus {
+ border-bottom: 1px solid #ffbf00;
+ box-shadow: 0 1px 0 0 #000;
+}
+
+.btn {
+    color: #000;
+    background-color: #ffbf00;
+}
+
+.btn:hover {
+    color: #000;
+    background-color: #ffd400;
 }
 
 .side-nav {
@@ -79,6 +102,10 @@ body {
 
 .album-list .album-small {
     background-Color:"#575757",
+}
+
+.login-panel {
+    background-color: #202020;
 }
 
 /* custom scrollbar */
