@@ -1,9 +1,9 @@
 module.exports = {
-    API: "http://71.120.244.18:4040",
-    APIUser: "kin3tics", 
-    APIPass: "k2210357", 
+    API: "http://myserver.subsonic.org",
+    APIUser: "User", 
+    APIPass: "Password", 
     APIVersion: "1.12",
-    APIClient: "ReactTest",
+    APIClient: "React-Subsonic",
     ItemTypes: {
         AUDIOFILE: "audiofile"
     },
