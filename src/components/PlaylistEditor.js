@@ -37,11 +37,11 @@ var PlaylistEditor = React.createClass({
         StreamingStore.updatePlaylist(this.state.tempPlaylist);
     },
     componentWillMount () {
-        StreamingStore.on('playlist.loaded', this.updateState);
+        StreamingStore.on('playlist.*', this.updateState);
         StreamingStore.on('streaming.ready', this.updateState);
     },
     componentWillUnmount () {
-        StreamingStore.off('playlist.loaded', this.updateState);
+        StreamingStore.off('playlist.*', this.updateState);
         StreamingStore.off('streaming.ready', this.updateState);
     },
     componentDidMount() {

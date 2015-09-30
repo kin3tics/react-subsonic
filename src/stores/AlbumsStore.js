@@ -13,9 +13,11 @@ var AlbumsStore = flux.createStore({
     ],
     loadAlbums (artistId, forceUpdate = false) {
         if(this.artistAlbumCache.hasOwnProperty(artistId) && !forceUpdate)
+        {
             this.emit('albums.cacheHasData');
-        else
+        } else {
             ApiUtil.loadArtistAlbums(artistId);
+        }
     },
     loadedAlbums (artistId, albums) {
         this.artistAlbumCache[artistId] = [];

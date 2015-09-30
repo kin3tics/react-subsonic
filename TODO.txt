@@ -1,11 +1,9 @@
 High Priority
- - Album Details - Add single files to current playlist
- - Album Details - Add album to current playlist
  - CRUD db-backed / localstorage playlists
  - Design custom HTML5 audio player
 
 Medium Priority
- - Album details - More details (album length, track lengths, genre, etc)
+ - Album Details - Add single files to current playlist (Drag'n'Drop)
  - Album details - Scale art better
  - User login
  - Server configuration

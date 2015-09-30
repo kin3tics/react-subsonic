@@ -1,6 +1,7 @@
 var flux = require('flux-react');
 var actions = require('../actions/AlbumActions');
 var ApiUtil = require('../utils/ApiUtil');
+var { Events: {StreamingEvents, PlaylistEvents} } = require('../constants');
 
 var StreamingStore = flux.createStore({
     songToPlay: null,
@@ -8,22 +9,23 @@ var StreamingStore = flux.createStore({
     actions: [
         actions.playSong,
         actions.createTempPlaylist,
-        actions.playlistMoveNext
+        actions.playlistMoveNext,
+        actions.playlistMovePrev
     ],
     playSong (song) {
         this.songToPlay = song;
         this.tempPlaylist.map((playlistSong) => { (playlistSong.id == song.id) ? playlistSong.active = true : playlistSong.active = false });
         this.savePlaylistToStorage(this.tempPlaylist);
-        this.emit("streaming.ready");
+        this.emit(StreamingEvents.READY);
     },
-    createTempPlaylist(album, song) {
-        if (song === null) {
-            song = { id: "-1" };
+    createTempPlaylist(songs, songToStream) {
+        if (songToStream === null) {
+            songToStream = { id: "-1" };
         }
-        this.tempPlaylist = album.song;
-        this.tempPlaylist.map((playlistSong) => { (playlistSong.id == song.id) ? playlistSong.active = true : playlistSong.active = false });
+        this.tempPlaylist = songs;
+        this.tempPlaylist.map((playlistSong) => { (playlistSong.id == songToStream.id) ? playlistSong.active = true : playlistSong.active = false });
         this.savePlaylistToStorage(this.tempPlaylist);
-        this.emit("playlist.loaded");
+        this.emit(PlaylistEvents.LOADED);
     },
     playlistMoveNext () {
         var index = null;
@@ -38,7 +40,22 @@ var StreamingStore = flux.createStore({
             this.songToPlay = this.tempPlaylist[index];
         }
         this.savePlaylistToStorage(this.tempPlaylist);
-        this.emit("streaming.ready");
+        this.emit(StreamingEvents.READY);
+    },
+    playlistMovePrev () {
+        var index = null;
+        this.tempPlaylist.map((playlistSong, i) => { if(playlistSong.active === true) { index = i; }});
+        this.tempPlaylist[index].active = false;
+        if(index === 0) {
+            //beginning of playlist
+            this.songToPlay = null;
+        } else {
+            index--;
+            this.tempPlaylist[index].active = true;
+            this.songToPlay = this.tempPlaylist[index];
+        }
+        this.savePlaylistToStorage(this.tempPlaylist);
+        this.emit(StreamingEvents.READY);
     },
     loadPlaylistFromStorage () {
         if(this.tempPlaylist.length === 0) {
@@ -70,6 +87,7 @@ var StreamingStore = flux.createStore({
         updatePlaylist(playlist) {
             this.tempPlaylist = playlist;
             this.savePlaylistToStorage(playlist);
+            this.emit(PlaylistEvents.RELOAD);
         }
     }
 });

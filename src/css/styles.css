@@ -12,8 +12,9 @@ a:visited {
 }
 
 /* helper classes */
+.clickable { cursor: pointer; }
 
-.hidden { display:none; }
+.hidden { display:none !important;  }
 
 .text-center {
     text-align: center;
@@ -41,6 +42,37 @@ a:visited {
     overflow-y: hidden;
 }
 
+/* icons */
+.icon {
+    height: 24px;
+    width: 24px;
+    display: inline-block;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    vertical-align: middle;
+}
+
+.icon-play {
+    background-image: url(../img/av/ic_play_circle_outline_white_24dp.png);
+}
+
+.icon-queue {
+    background-image: url(../img/av/ic_queue_music_white_24dp.png);
+}
+
+.icon-previous-song {
+    background-image: url(../img/av/ic_skip_previous_white_24dp.png);
+}
+.icon-play-song {
+    background-image: url(../img/av/ic_play_arrow_white_24dp.png);
+}
+.icon-pause-song {
+    background-image: url(../img/av/ic_pause_white_24dp.png);
+}
+.icon-next-song {
+    background-image: url(../img/av/ic_skip_next_white_24dp.png);
+}
+
 /* side-nav */
 
 .side-nav {
@@ -53,6 +85,11 @@ a:visited {
 
 .artist-list {
     height: calc(100% - 75px);
+}
+
+.artist-list h4 {
+    margin-top: 10px;
+    margin-left: 10px;
 }
 
 .indexes {
@@ -85,6 +122,40 @@ a:visited {
     z-index: 10;
 }
 
+/* playlist */
+.playlist-container {
+    position: absolute;
+    top: 305px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 10px;
+}
+
+.playlist-container ul {
+    margin: 0;
+    height: 100%;
+    position: relative;
+}
+
+.playlist-container li {
+    height: 22px;
+}
+
+.song-title {
+    display: inline-block;
+    width: 79%;
+    overflow:hidden;
+    white-space: nowrap;
+    position: absolute;
+}
+
+.song-duration {
+    display: inline-block;
+    position: absolute;
+    right: 0;
+}
+
 /* album-details */
 
 .album-details {
@@ -98,6 +169,14 @@ a:visited {
     margin-bottom: 10px;
 }
 
+.album-details .title-div {
+    padding-left: 10px;
+}
+
+.album-details .title-div h4 {
+    margin-top: 0;
+}
+
 .title-div, .song-div {
     padding: 5px;
 }
@@ -105,9 +184,24 @@ a:visited {
 .song-div{    
     position: absolute;
     bottom: 10px;
-    top: 120px;
+    top: 105px;
     left: 0;
     right: 310px;
+    padding: 0px 20px;
+}
+
+.song-div li .song-duration {
+    right: 20px;
+}
+
+.song-div li {
+    height: 24px;
+}
+
+.song-div li .song-track {
+    width: 24px;
+    display: inline-block;
+    text-align: center;
 }
 
 .album-selected {
@@ -118,9 +212,7 @@ a:visited {
     overflow: hidden;
 }
 
-.album-selected > div{
-	position: relative;
-}
+
 .album-selected > div:before{
 	content: "";
 	display: block;
@@ -161,6 +253,13 @@ a:visited {
     background-size: 100%;
 }
 
+.album-list h5 {
+    margin-top: 0;
+}
+.album-list .album-details {
+    padding:10px;
+}
+
 /* now-playing */
 
 .now-playing-container {
@@ -168,7 +267,7 @@ a:visited {
     position: absolute;
     z-index:11;
     height: calc(100% - 240px);
-    max-width: 310px;
+    width: 310px;
 }
 
 .now-playing {
@@ -194,36 +293,36 @@ a:visited {
     height: 22px;
 }
 
-/* playlist */
-.playlist-container {
-    position: absolute;
-    top: 305px;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: 10px;
-}
-
-.playlist-container ul {
-    margin: 0;
-    height: 100%;
+/* audio controls */
+.audio-controls {
     position: relative;
+    width: 200px;
+    height: 50px;
+    margin-left:auto;
+    margin-right:auto;
 }
-
-.playlist-container li {
-    height: 22px;
+.audio-controls .timeline {
+    width: 100%;
 }
-
-.song-title {
-    display: inline-block;
-    width: 79%;
-    overflow:hidden;
-    white-space: nowrap;
-    position: absolute;
-}
-
-.song-duration {
-    display: inline-block;
-    position: absolute;
+.audio-controls .line {
+    position:absolute;
+    height: 6px;
+    top: 3px;
+    border-radius: 2px;
+    background: rgba(255,255,255,.2);
+    cursor:pointer;
     right: 0;
+    left: 0;
+}
+.audio-controls .playhead{
+    width: 20px;
+    height: 12px;
+    border-radius: 5px;
+    margin-left:-1px;
+    background-color: #DDD;
+    cursor: pointer;
+}
+
+.audio-controls .controls {
+    text-align: center;
 }

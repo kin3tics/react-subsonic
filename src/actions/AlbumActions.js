@@ -11,7 +11,8 @@ var AlbumActions = flux.createActions([
     //Player/Playlist Actions
     'playSong',
     'createTempPlaylist',
-    'playlistMoveNext'
+    'playlistMoveNext',
+    'playlistMovePrev'
 ]);
 
 module.exports = AlbumActions;

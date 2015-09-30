@@ -45,7 +45,7 @@ var Album = React.createClass({
                      onMouseOver={this.mouseOver} 
                      onMouseOut={this.mouseOut}>
                     <div className={this.state.detailClasses.join(" ")}>
-                        <h4>{album.name}</h4>
+                        <h5>{album.name}</h5>
                         <span className="artist-name">{album.artist}</span>
                     </div>
                 </div>
