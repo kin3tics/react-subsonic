@@ -3,7 +3,7 @@ var actions = require('../../../actions/AlbumActions');
 var ApiUtil = require('../../../utils/ApiUtil');
 //Stores
 var AlbumsStore = require('../../../stores/AlbumsStore');
-var PlaylistStore = require('../../../stores/StreamingStore');
+var PlaylistStore = require('../../../stores/PlaylistStore');
 //Components
 var AlbumFile = require('./AlbumFile');
 
@@ -73,9 +73,9 @@ var Album = React.createClass({
         actions.createTempPlaylist(songs, songs[0]);
     },
     handleQueueAlbum () {
-        var playlist = PlaylistStore.getTempPlaylist();
-        playlist = playlist.concat(this.state.albumDetails.song);
-        PlaylistStore.updatePlaylist(playlist);
+        var playlist = PlaylistStore.getEditingPlaylist();
+        playlist.entry = playlist.entry.concat(this.state.albumDetails.song);
+        PlaylistStore.updatePlaylist(playlist.entry);
     },
     getDurationArray (durationInSeconds) {
         var duration = [0,0];

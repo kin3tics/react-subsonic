@@ -29,7 +29,7 @@ var AlbumsStore = flux.createStore({
         this.emit('albums.cacheUpdated');
     },
     loadAlbum(id, forceUpdate = false) {
-        if(this.albumCache[id].hasOwnProperty("detailsLoaded") && !forceUpdate)
+        if(this.albumCache[id] !== undefined && this.albumCache[id].hasOwnProperty("detailsLoaded") && !forceUpdate)
             this.emit('albumDetails.cacheHasData');
         else
             ApiUtil.loadAlbum(id);

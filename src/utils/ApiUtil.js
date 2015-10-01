@@ -52,6 +52,39 @@ var ApiUtils = {
           actions.loadedArtistDetails(res['subsonic-response'].artistInfo2);
         });
     },
+    fetchPlaylists() {
+        var params = this.getAPIParams();
+        xhr.getJSON(`${params.url}/rest/getPlaylists?${params.requiredParams}`, (err, res) => {
+          actions.playlistsFetched(res['subsonic-response'].playlists);
+        });
+    },
+    fetchPlaylist(id) {
+        var params = this.getAPIParams();
+        xhr.getJSON(`${params.url}/rest/getPlaylist?${params.requiredParams}&id=${id}`, (err, res) => {
+          actions.playlistFetched(res['subsonic-response'].playlist);
+        });
+    },
+    createPlaylist(playlistName) {
+        var params = this.getAPIParams();
+        xhr.getJSON(`${params.url}/rest/createPlaylist?${params.requiredParams}&name=${playlistName}`, (err, res) => {
+          //actions.playlistCreated();
+        });
+    },
+    updatePlaylist(playlist) {
+        var params = this.getAPIParams();
+        //TODO: Finish Me
+        var removals = [...Array(playlist.songCount)].map((x,i) => {return "&songIndexToRemove=" + i});
+        var adds = playlist.entry.map((song) => {return "&songIdToAdd=" + song.id; });
+        xhr.getJSON(`${params.url}/rest/updatePlaylist?${params.requiredParams}&playlistId=${playlist.id}${adds.join("")}${removals.join("")}`, (err, res) => {
+          actions.playlistUpdated(playlist.id);
+        });
+    },
+    deletePlaylist(id) {
+        var params = this.getAPIParams();
+        xhr.getJSON(`${params.url}/rest/deletePlaylist?${params.requiredParams}&id=${id}`, (err, res) => {
+          actions.playlistDeleted(id);
+        });
+    },
     getStreamingUrl(id) {
         var params = this.getAPIParams();
         return `${params.url}/rest/stream?${params.requiredParams}&id=${id}`;

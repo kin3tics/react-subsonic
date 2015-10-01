@@ -5,7 +5,7 @@ var actions = require('../actions/AlbumActions');
 var { ItemTypes } = require('../constants');
 var flow = require('lodash/function/flow');
 //Stores
-var StreamingStore = require('../stores/StreamingStore');
+var PlaylistStore = require('../stores/PlaylistStore');
 //Components
 var { DragSource, DropTarget } = require('react-dnd');
 
@@ -68,18 +68,19 @@ var PlaylistFile = React.createClass ({
       moveFile: PropTypes.func.isRequired
     },
     handleClick (song) {
-        actions.playSong(song);
+        actions.playSong(song, this.props.playlistIndex);
     },
     render () {
         var { connectDragSource, isDragging, connectDropTarget } = this.props;
         var song = this.props.song;
+        var isActive = this.props.active;
         var classes = [];
         var duration = [0,0];
         duration[0] = Math.floor(song.duration / 60);
         duration[1] = song.duration - (duration[0] * 60);
         duration[1] = duration[1] < 10 ? "0" + duration[1] : duration[1];
         
-        if (song.active) { classes.push("current-playing"); }
+        if (isActive) { classes.push("current-playing"); }
         if (isDragging) { classes.push("dragging") }
         
         return connectDragSource(connectDropTarget(

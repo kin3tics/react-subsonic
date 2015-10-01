@@ -1,10 +1,12 @@
 var React = require('react');
 var actions = require('../actions/AlbumActions');
 var ApiUtil = require('../utils/ApiUtil');
+var { Events: { ServerPlaylistEvents } } = require('../constants');
 //Stores
-var StreamingStore = require('../stores/StreamingStore');
+var PlaylistStore = require('../stores/PlaylistStore');
 //Components
 var PlaylistEditor = require('./PlaylistEditor');
+var PlaylistControls = require('./PlaylistControls');
 var { Link } = require('react-router');
 
 var NowPlaying = React.createClass({
@@ -15,16 +17,19 @@ var NowPlaying = React.createClass({
                 title: "",
                 artist: ""
             },
-            duration: 0
+            duration: 0,
+            serverPlaylists: null
         };
     },
     componentWillMount () {
-        StreamingStore.on('streaming.preload', this.updateStateLoad);
-        StreamingStore.on('streaming.ready', this.updateStateLoadAndPlay);
+        PlaylistStore.on('streaming.preload', this.updateStateLoad);
+        PlaylistStore.on('streaming.ready', this.updateStateLoadAndPlay);
+        PlaylistStore.on(ServerPlaylistEvents.ALLFETCHED, this.playlistsFetched);
     },
     componentWillUnmount () {
-        StreamingStore.off('streaming.preload', this.updateStateLoad);
-        StreamingStore.off('streaming.ready', this.updateStateLoadAndPlay);
+        PlaylistStore.off('streaming.preload', this.updateStateLoad);
+        PlaylistStore.off('streaming.ready', this.updateStateLoadAndPlay);
+        PlaylistStore.off(ServerPlaylistEvents.ALLFETCHED, this.playlistsFetched);
     },
     componentDidMount () {
         var node = React.findDOMNode(this.refs.audioTracker);
@@ -103,7 +108,7 @@ var NowPlaying = React.createClass({
     },
     updateStateLoad () {
         this.setState({
-            song: StreamingStore.getSongToStream()
+            song: PlaylistStore.getSongToStream()
         });
         var node = React.findDOMNode(this.refs.audioTracker);
         var pauseButton = React.findDOMNode(this.refs.playButton);
@@ -112,7 +117,7 @@ var NowPlaying = React.createClass({
     },
     updateStateLoadAndPlay () {
         this.setState({
-            song: StreamingStore.getSongToStream()
+            song: PlaylistStore.getSongToStream()
         });
         var node = React.findDOMNode(this.refs.audioTracker);
         var pauseButton = React.findDOMNode(this.refs.playButton);
@@ -120,11 +125,38 @@ var NowPlaying = React.createClass({
         node.play();
         pauseButton.className = "icon icon-pause-song clickable";
     },
+    handleLoadPlaylist(id) {
+        PlaylistStore.fetchPlaylist(id);
+        this.setState({
+            serverPlaylists: null
+        });
+    },
+    playlistsFetched() {
+        var playlists = PlaylistStore.getServerPlaylists();
+        this.setState({
+            serverPlaylists: playlists
+        });
+    },
     render () {
         var song = this.state.song;
         
         var artistLink = `/artists/${song.artistId}`;
         var albumLink = `${artistLink}/${song.albumId}`;
+        
+        var playlistArea = "";
+        if(this.state.serverPlaylists != null && this.state.serverPlaylists.length > 0) {
+            playlistArea = (
+                <div>
+                <div className="playlist-title">Select a Playlist</div>
+                <div className="playlist-list-container scrollable">
+                    <ul className="scrollable">
+                        { this.state.serverPlaylists.map((playlist) => { return (<li key={"serverPlaylist_" + playlist.id} onClick={this.handleLoadPlaylist.bind(this,playlist.id)}>{playlist.name}</li>); })}
+                    </ul>
+                </div>
+                </div>);
+        } else {
+           playlistArea = (<div><PlaylistEditor /><PlaylistControls /></div>);
+        }
         
         return (
             <div className="now-playing-container">
@@ -149,8 +181,8 @@ var NowPlaying = React.createClass({
                         <source src={ApiUtil.getStreamingUrl(song.id)} />
                     </audio>
                 </div>
-                <div className="playlist-container scrollable">
-                    <PlaylistEditor />
+                <div className="playlist-container">
+                    {playlistArea}
                 </div>
             </div>
             );

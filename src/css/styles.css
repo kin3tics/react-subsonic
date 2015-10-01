@@ -149,6 +149,39 @@ a:visited {
     height: 22px;
 }
 
+.playlist-list-container {
+    position: absolute;
+    top: 45px;
+    left: 10px;
+    bottom: 30px;
+    right: 10px;
+}
+
+.playlist-controls {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    text-align: center;
+}
+
+.playlist-controls a {
+    height: 20px;
+    line-height: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin: 0 2px 5px 2px;
+}
+
+.playlist-title {
+    text-align: center;
+}
+.playlist-indicator-container {
+    line-height: 10px;
+}
+.playlist-indicator-container > span {
+    cursor: pointer;
+}
 .song-title {
     display: inline-block;
     width: 79%;

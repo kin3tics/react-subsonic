@@ -19,6 +19,10 @@ module.exports = {
             INVALID: "settings.invalid",
             VALID: "settings.valid",
             CHECKINGVALID: "settings.checkingvalid"
+        },
+        ServerPlaylistEvents: {
+            ALLFETCHED: "serverplaylist.playlistsfetched",
+            SINGLEFETCHED: "serverplaylist.playlistfetched"
         }
     }
 }

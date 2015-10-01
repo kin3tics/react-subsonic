@@ -2,15 +2,15 @@ var React = require('react');
 var actions = require('../../../actions/AlbumActions');
 //Stores
 var AlbumsStore = require('../../../stores/AlbumsStore');
-var PlaylistStore = require('../../../stores/StreamingStore');
+var PlaylistStore = require('../../../stores/PlaylistStore');
 
 var AlbumFile = React.createClass({
     componentDidUpdate (prevProps) {
     },
     handleQueueSong (song) {
-        var playlist = PlaylistStore.getTempPlaylist();
-        playlist.push(song);
-        PlaylistStore.updatePlaylist(playlist);
+        var playlist = PlaylistStore.getEditingPlaylist();
+        playlist.entry.push(song);
+        PlaylistStore.updatePlaylist(playlist.entry);
     },
     getDurationArray (durationInSeconds) {
         var duration = [0,0];

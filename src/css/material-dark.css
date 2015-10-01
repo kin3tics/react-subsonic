@@ -81,7 +81,8 @@ body {
 
 .song-div li .song-title:hover,
 .indexes span:hover,
-.playlist-container li:hover  {
+.playlist-container li:hover,
+.playlist-active {
     color: #ffbf00;
     cursor: pointer;
 }
