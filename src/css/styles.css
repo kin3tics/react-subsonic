@@ -53,7 +53,7 @@ main {
 
 /* side-nav */
 
-.side-nav {
+.artist-list-container {
     position: absolute;
     left:0;
     top:0;
@@ -386,6 +386,8 @@ main {
 
 /* login panel */
 .login-panel {
+    width:50%;
+    min-width: 300px;
     max-width: 1000px;
     margin-left: auto;
     margin-right: auto;
@@ -403,4 +405,41 @@ main {
 
 .login-panel .preloader-wrapper {
     vertical-align: middle;
+}
+
+
+/* Media Query Overrides */
+@media screen and (max-height: 700px) {
+    .album-selected {
+        height: calc(100% - 120px);
+    }
+    .album-list {
+        width: calc(100% - 550px);
+        height: 120px;
+    }
+    .album-list .album-small {
+        height: 100px;
+        width: 100px;
+    }
+    .album-list .album-small h5 {
+        font-size: small;
+        line-height: 15px;
+    }
+    .album-list .album-small span {
+        font-size: x-small;
+        line-height: 12px;
+    }
+    .now-playing-container {
+        height: 100%;
+    }
+    .now-playing {
+        height: 205px;
+    }
+    .now-playing img {
+        height: 100px;
+        width: 100px;
+    }
+    .playlist-container {
+        top: 205px;
+    }
 }

@@ -53,7 +53,7 @@ var Navigation = React.createClass({
         }
     
         return (
-          <div className="side-nav fixed">
+          <div className="artist-list-container">
             <div className="artist-list scrollable">
                 { artists }
             </div>

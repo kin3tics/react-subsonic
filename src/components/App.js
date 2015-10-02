@@ -49,7 +49,7 @@ var App = React.createClass({
           <div>
           <Navigation />
           <main>
-                { this.props.children ? this.props.children : "" }
+                { this.props.children ? this.props.children : (<div className="row album-list"></div>) }
           </main>
           <NowPlaying />
           </div>
