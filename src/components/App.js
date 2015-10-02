@@ -3,8 +3,8 @@ var actions = require('../actions/AlbumActions');
 //Stores
 var UserStore = require('../stores/UserStore');
 //Components
-var Navigation = require("./Navigation");
-var NowPlaying = require("./SidebarRight");
+var SidebarLeft = require("./SidebarLeft");
+var SidebarRight = require("./SidebarRight");
 var Login = require("./Login");
 
 var { Events: {SettingsEvents} } = require('../constants');
@@ -47,11 +47,11 @@ var App = React.createClass({
         
         return (
           <div>
-          <Navigation />
+          <SidebarLeft />
           <main>
                 { this.props.children ? this.props.children : (<div className="row album-list"></div>) }
           </main>
-          <NowPlaying />
+          <SidebarRight />
           </div>
         );
     }

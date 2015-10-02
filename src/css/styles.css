@@ -52,8 +52,18 @@ main {
 }
 
 /* side-nav */
+.menu-bar {
+    margin-left: 10px;
+    height: 40px;
+    padding-top: 10px;
+}
+.menu-bar h5 {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 0 0 5px;
+}
 
-.artist-list-container {
+.nav-container {
     position: absolute;
     left:0;
     top:0;
@@ -65,9 +75,12 @@ main {
     height: calc(100% - 75px);
 }
 
+.artist-list ul {
+    margin-top: 0;
+}
+
 .artist-list h4 {
-    margin-top: 10px;
-    margin-left: 10px;
+    margin: 5px 0 5px 12px;
 }
 
 .indexes {

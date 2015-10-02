@@ -30,25 +30,26 @@ body {
 }
 
 .artist-list-container {
-    background-color: #202020;
-    height: 100%;
+    height: calc(100% - 40px);
 }
-.artist-list-container {
+.nav-container {
     width: 240px;
     position: absolute;
     left:0;
+    background-color: #202020;
+    height: 100%;
 }
 
-.artist-list-container li {
+.nav-container li {
     float: none;
     padding: 0 15px;
 }
 
-.artist-list-container li:hover, .artist-list-container li.active {
+.nav-container li:hover, .nav-container li.active {
     background-color: #ddd;
 }
 
-.artist-list-container a {
+.nav-container a {
     display: block;
     padding: 0 15px;
     color: #DDD;
@@ -56,7 +57,7 @@ body {
     line-height: 24px;
 }
 
-.artist-list-container a:hover {
+.nav-container a:hover {
     color: #444;
 }
 
@@ -200,4 +201,7 @@ input:-webkit-autofill:focus {
 }
 .icon-delete {
     background-image: url(../img/action/ic_delete_white_24dp.png);
+}
+.icon-menu {
+    background-image: url(../img/navigation/ic_menu_white_24dp.png);
 }
