@@ -8,6 +8,7 @@ Version History
         Load and switch between multiple playlists
         "Now Playing" playlist cannot be saved, deleted, or removed
         Individual songs can be removed from playlists
+        Playlist details are now shown (# of tracks and total running time)
     - Now Playing
         Updates tab title when song is played
         

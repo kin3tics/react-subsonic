@@ -124,7 +124,7 @@ main {
     position: absolute;
     top: 50px;
     left: 10px;
-    bottom: 10px;
+    bottom: 35px;
     right: 10px;
 }
 
@@ -152,6 +152,10 @@ main {
 
 .playlist-controls .loaded-playlists {
     padding-left: 28px;
+}
+
+.playlist-controls .playlist-list-container {
+    bottom:10px;
 }
 
 .playlist-controls .playlist-list-container > div {
@@ -199,6 +203,14 @@ main {
     display: inline-block;
     position: absolute;
     right: 0;
+}
+
+.playlist-overview {
+    bottom: 10px;
+    position: absolute;
+    right: 10px;
+    left: 10px;
+    height: 22px;
 }
 
 /* album-details */

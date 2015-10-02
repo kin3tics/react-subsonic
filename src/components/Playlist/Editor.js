@@ -83,7 +83,30 @@ var PlaylistEditor = React.createClass({
     },
     render () {
         const { currentPlaylist } = this.state;
-
+        var playlistTotalDuration = 0;
+        var playlistTracks = [];
+        currentPlaylist.map((song, i) => {
+            playlistTotalDuration += song.duration;
+            var isActive = false
+            if (song.playlistId == this.state.loadedPlaylists.active && song.active) {
+                isActive = true;
+            }
+            playlistTracks.push( (
+                <PlaylistFile
+                  key={song.id}
+                  index={i}
+                  playlistId={this.state.currentPlaylistId}
+                  id={parseInt(song.id)}
+                  song={song}
+                  active={isActive}
+                  moveFile={this.moveSong} />
+            ) );
+        });
+        var duration = [0,0];
+        duration[0] = Math.floor(playlistTotalDuration / 60);
+        duration[1] = playlistTotalDuration - (duration[0] * 60);
+        duration[1] = duration[1] < 10 ? "0" + duration[1] : duration[1];
+        
         return (
             <div>
             <div className='playlist-title'>
@@ -94,7 +117,7 @@ var PlaylistEditor = React.createClass({
                     if (playlistId == this.state.loadedPlaylists.active) {
                         isPlayingClass = "playlist-active";
                     }
-                    if (playlistId == this.state.currentPlaylistId){
+                    if (playlistId == this.state.currentPlaylistId) {
                         indicator = "●";
                     }
                     return (<span className={isPlayingClass} key={"playlistactiveindicator_" + i } onClick={this.loadPlaylist.bind(this,(playlistId))}>{indicator}</span>);
@@ -103,23 +126,14 @@ var PlaylistEditor = React.createClass({
             </div>
             <div className="playlist-list-container scrollable">
                 <ul className='playlist'>
-                    { currentPlaylist.map((song, i) => {
-                        var isActive = false
-                        if (song.playlistId == this.state.loadedPlaylists.active && song.active) {
-                            isActive = true;
-                        }
-                        return (
-                            <PlaylistFile
-                              key={song.id}
-                              index={i}
-                              playlistId={this.state.currentPlaylistId}
-                              id={parseInt(song.id)}
-                              song={song}
-                              active={isActive}
-                              moveFile={this.moveSong} />
-                        );
-                   })} 
+                    {playlistTracks}
                 </ul>
+            </div>
+            <div className="playlist-overview">
+                <div className="song-title">{currentPlaylist !== undefined ? currentPlaylist.length : 0} Tracks</div>
+                <div className="song-duration">
+                    <div className="duration-text">{duration[0]}:{duration[1]}</div>
+                </div>
             </div>
             </div>
             );
