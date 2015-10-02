@@ -14,7 +14,7 @@ var AlbumActions = flux.createActions([
     'playlistMoveNext',
     'playlistMovePrev',
     'playlistCreated',
-    'deletedPlaylist',
+    'playlistDeleted',
     'playlistUpdated',
     'playlistsFetched',
     'playlistFetched'

@@ -1,12 +1,9 @@
 var React = require('react');
 var actions = require('../actions/AlbumActions');
 var ApiUtil = require('../utils/ApiUtil');
-var { Events: { ServerPlaylistEvents } } = require('../constants');
 //Stores
 var PlaylistStore = require('../stores/PlaylistStore');
 //Components
-var PlaylistEditor = require('./PlaylistEditor');
-var PlaylistControls = require('./PlaylistControls');
 var { Link } = require('react-router');
 
 var NowPlaying = React.createClass({
@@ -17,19 +14,16 @@ var NowPlaying = React.createClass({
                 title: "",
                 artist: ""
             },
-            duration: 0,
-            serverPlaylists: null
+            duration: 0
         };
     },
     componentWillMount () {
         PlaylistStore.on('streaming.preload', this.updateStateLoad);
         PlaylistStore.on('streaming.ready', this.updateStateLoadAndPlay);
-        PlaylistStore.on(ServerPlaylistEvents.ALLFETCHED, this.playlistsFetched);
     },
     componentWillUnmount () {
         PlaylistStore.off('streaming.preload', this.updateStateLoad);
         PlaylistStore.off('streaming.ready', this.updateStateLoadAndPlay);
-        PlaylistStore.off(ServerPlaylistEvents.ALLFETCHED, this.playlistsFetched);
     },
     componentDidMount () {
         var node = React.findDOMNode(this.refs.audioTracker);
@@ -61,6 +55,7 @@ var NowPlaying = React.createClass({
         } else {
             node.play();
             pauseButton.className = "icon icon-pause-song clickable";
+            document.title = `${this.state.song.title} - ${this.state.song.artist} - React-Subsonic`;
         }
     },
     updateDuration() {
@@ -124,66 +119,35 @@ var NowPlaying = React.createClass({
         node.load();
         node.play();
         pauseButton.className = "icon icon-pause-song clickable";
-    },
-    handleLoadPlaylist(id) {
-        PlaylistStore.fetchPlaylist(id);
-        this.setState({
-            serverPlaylists: null
-        });
-    },
-    playlistsFetched() {
-        var playlists = PlaylistStore.getServerPlaylists();
-        this.setState({
-            serverPlaylists: playlists
-        });
+        document.title = `${this.state.song.title} - ${this.state.song.artist} - React-Subsonic`;
     },
     render () {
         var song = this.state.song;
         
         var artistLink = `/artists/${song.artistId}`;
         var albumLink = `${artistLink}/${song.albumId}`;
-        
-        var playlistArea = "";
-        if(this.state.serverPlaylists != null && this.state.serverPlaylists.length > 0) {
-            playlistArea = (
-                <div>
-                <div className="playlist-title">Select a Playlist</div>
-                <div className="playlist-list-container scrollable">
-                    <ul className="scrollable">
-                        { this.state.serverPlaylists.map((playlist) => { return (<li key={"serverPlaylist_" + playlist.id} onClick={this.handleLoadPlaylist.bind(this,playlist.id)}>{playlist.name}</li>); })}
-                    </ul>
-                </div>
-                </div>);
-        } else {
-           playlistArea = (<div><PlaylistEditor /><PlaylistControls /></div>);
-        }
-        
+
         return (
-            <div className="now-playing-container">
-                <div className="now-playing">
-                    <div className="text-center">
-                        <Link to={albumLink}><img src={song.coverArt !== null ? ApiUtil.getAlbumArtUrl(song.coverArt) : ""} /></Link>
-                        <Link to={albumLink}><h5 title={song.title}>{ song.title.length > 20 ? song.title.substring(0,17) + "..." : song.title }</h5></Link>
-                        <Link to={artistLink}><h6>{song.artist}</h6></Link>
-                        <div className="audio-controls">
-                            <div className="timeline"> 
-                                <div className="line" ref="line" onClick={this.handleTimelineClick}></div>
-                                <div className="playhead" ref="playHead"></div>
-                            </div>
-                            <div className="controls">
-                                <span className="icon icon-previous-song clickable" onClick={this.getPrevTrack}></span>
-                                <span className="icon icon-play-song clickable" ref="playButton" onClick={this.handlePlayPause}></span>
-                                <span className="icon icon-next-song clickable" onClick={this.getNextTrack}></span>
-                            </div>
+            <div className="now-playing">
+                <div className="text-center">
+                    <Link to={albumLink}><img src={song.coverArt !== null ? ApiUtil.getAlbumArtUrl(song.coverArt) : ""} /></Link>
+                    <Link to={albumLink}><h5 title={song.title}>{ song.title.length > 20 ? song.title.substring(0,17) + "..." : song.title }</h5></Link>
+                    <Link to={artistLink}><h6>{song.artist}</h6></Link>
+                    <div className="audio-controls">
+                        <div className="timeline"> 
+                            <div className="line" ref="line" onClick={this.handleTimelineClick}></div>
+                            <div className="playhead" ref="playHead"></div>
+                        </div>
+                        <div className="controls">
+                            <span className="icon icon-previous-song clickable" onClick={this.getPrevTrack}></span>
+                            <span className="icon icon-play-song clickable" ref="playButton" onClick={this.handlePlayPause}></span>
+                            <span className="icon icon-next-song clickable" onClick={this.getNextTrack}></span>
                         </div>
                     </div>
-                    <audio ref="audioTracker" >
-                        <source src={ApiUtil.getStreamingUrl(song.id)} />
-                    </audio>
                 </div>
-                <div className="playlist-container">
-                    {playlistArea}
-                </div>
+                <audio ref="audioTracker" >
+                    <source src={ApiUtil.getStreamingUrl(song.id)} />
+                </audio>
             </div>
             );
         

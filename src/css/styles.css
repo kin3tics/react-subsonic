@@ -3,14 +3,6 @@ main {
     padding-left: 240px;
 }
 
-/*a {
-    color: black;
-    text-decoration: none;
-}
-a:visited {
-    color: black;
-}*/
-
 /* helper classes */
 .clickable { cursor: pointer; }
 
@@ -57,27 +49,6 @@ a:visited {
     background-repeat: no-repeat;
     background-size: 100%;
     vertical-align: middle;
-}
-
-.icon-play {
-    background-image: url(../img/av/ic_play_circle_outline_white_24dp.png);
-}
-
-.icon-queue {
-    background-image: url(../img/av/ic_queue_music_white_24dp.png);
-}
-
-.icon-previous-song {
-    background-image: url(../img/av/ic_skip_previous_white_24dp.png);
-}
-.icon-play-song {
-    background-image: url(../img/av/ic_play_arrow_white_24dp.png);
-}
-.icon-pause-song {
-    background-image: url(../img/av/ic_pause_white_24dp.png);
-}
-.icon-next-song {
-    background-image: url(../img/av/ic_skip_next_white_24dp.png);
 }
 
 /* side-nav */
@@ -151,30 +122,58 @@ a:visited {
 
 .playlist-list-container {
     position: absolute;
-    top: 45px;
+    top: 50px;
     left: 10px;
-    bottom: 30px;
+    bottom: 10px;
     right: 10px;
 }
 
-.playlist-controls {
+.playlist-options-btn {
+    top: 15px;
     position: absolute;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    text-align: center;
+    right: 10px;
 }
 
-.playlist-controls a {
+.playlist-controls .playlist-title {
+    margin-top: 5px;
+}
+
+.playlist-controls .new-playlist {
+    padding-left: 28px;
+    margin-top: 0;
+}
+
+.playlist-controls .new-playlist input {
+    width: calc(100% - 29px);
     height: 20px;
-    line-height: 20px;
-    padding-left: 10px;
-    padding-right: 10px;
-    margin: 0 2px 5px 2px;
+    margin-right: 5px;
+    margin-bottom: 0;
+}
+
+.playlist-controls .loaded-playlists {
+    padding-left: 28px;
+}
+
+.playlist-controls .playlist-list-container > div {
+    margin-bottom: 15px;
+}
+
+.playlist-controls .playlist-list-container .clickable > div {
+    display: inline-block;
+    width: calc(100% - 24px);
+    vertical-align: middle;
+    padding-left: 2px;
+}
+
+.playlist-back-btn {
+    top: 15px;
+    position: absolute;
+    left: 10px;
 }
 
 .playlist-title {
     text-align: center;
+    font-weight: bold;
 }
 .playlist-indicator-container {
     line-height: 10px;
@@ -182,6 +181,12 @@ a:visited {
 .playlist-indicator-container > span {
     cursor: pointer;
 }
+
+.playlist .song-duration {
+    width: 21%;
+    text-align: right;
+}
+
 .song-title {
     display: inline-block;
     width: 79%;

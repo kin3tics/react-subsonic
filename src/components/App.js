@@ -4,7 +4,7 @@ var actions = require('../actions/AlbumActions');
 var UserStore = require('../stores/UserStore');
 //Components
 var Navigation = require("./Navigation");
-var NowPlaying = require("./NowPlaying");
+var NowPlaying = require("./SidebarRight");
 var Login = require("./Login");
 
 var { Events: {SettingsEvents} } = require('../constants');

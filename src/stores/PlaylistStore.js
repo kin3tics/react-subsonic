@@ -21,15 +21,17 @@ var PlaylistStore = flux.createStore({
         actions.playlistMovePrev,
         actions.playlistsFetched,
         actions.playlistFetched,
-        actions.playlistUpdated
+        actions.playlistUpdated,
+        actions.playlistDeleted,
+        actions.playlistCreated
     ],
-    playSong (song, playlistIndex) {
-        if(playlistIndex !== undefined && playlistIndex >= 0) {
-            this.activePlaylist = playlistIndex;
+    playSong (song, playlistId) {
+        if(playlistId !== undefined && playlistId >= 0) {
+            this.activePlaylist = playlistId;
         } else {
             this.activePlaylist = -1;
         }
-        var playlist = this.getActivePlaylist();
+        var playlist = this.getPlaylistById(this.activePlaylist).entry;
         this.songToPlay = song;
         playlist.map((playlistSong) => { (playlistSong.id == song.id) ? playlistSong.active = true : playlistSong.active = false });
         if (this.activePlaylist == -1) { this.savePlaylistToStorage(playlist); }
@@ -40,28 +42,22 @@ var PlaylistStore = flux.createStore({
         this.savePlaylistToStorage(this.nowPlayingPlaylist);
         this.emit(PlaylistEvents.LOADED);
     },
-    initializePlaylist(songs, songToStream, playlistIndex) {
+    initializePlaylist(songs, songToStream, playlistId) {
         if(songs === undefined) {songs = [];}
         if (songToStream === null) {
             songToStream = { id: "-1"};
         }
-        songToStream.playlistIndex = playlistIndex;
+        songToStream.playlistId = playlistId;
         var playlist = songs;
         playlist.map((playlistSong) => { (playlistSong.id == songToStream.id) 
             ? playlistSong.active = true : playlistSong.active = false;
-            playlistSong.playlistIndex = playlistIndex;
+            playlistSong.playlistId = playlistId;
         });
         return playlist;
     },
-    getActivePlaylist() {
-        if (this.activePlaylist < 0 || this.activePlaylist >= this.loadedPlaylists.length) {
-            return this.nowPlayingPlaylist;
-        } else {
-            return this.loadedPlaylists[this.activePlaylist].entry;
-        }
-    },
-    getPlaylistByIndex(index) {
-        if(index < 0 || index >= this.loadedPlaylists.length) {
+    getPlaylistById(id) {
+        var idx = this.loadedPlaylists.map(function(p) { return p.id; }).indexOf(id);
+        if(idx < 0) {
             if(this.nowPlayingPlaylist.length === 0)
             {
                 //attempt to load from sessionStorage
@@ -73,12 +69,11 @@ var PlaylistStore = flux.createStore({
                 entry: this.nowPlayingPlaylist
             }
         }
-        
-        return this.loadedPlaylists[index];
+        return this.loadedPlaylists[idx];
     },
     playlistMoveNext () {
         var index = 0;
-        var playlist = this.getActivePlaylist();
+        var playlist = this.getPlaylistById(this.activePlaylist).entry;
         playlist.map((playlistSong, i) => { if(playlistSong.hasOwnProperty("active") && playlistSong.active === true) { index = i; }});
         
         playlist[index].active = false;
@@ -90,7 +85,7 @@ var PlaylistStore = flux.createStore({
             playlist[index].active = true;
             this.songToPlay = playlist[index];
         }
-        if (this.activePlaylist < 0 || this.activePlaylist >= this.loadedPlaylists.length) {
+        if (this.activePlaylist < 0 ) {
             this.nowPlayingPlaylist = playlist;
             this.savePlaylistToStorage(this.nowPlayingPlaylist);
         } else {
@@ -100,7 +95,7 @@ var PlaylistStore = flux.createStore({
     },
     playlistMovePrev () {
         var index = null;
-        var playlist = this.getActivePlaylist();
+        var playlist = this.getPlaylistById(this.activePlaylist).entry;
         playlist.map((playlistSong, i) => { if(playlistSong.active === true) { index = i; }});
         playlist[index].active = false;
         if(index === 0) {
@@ -111,7 +106,7 @@ var PlaylistStore = flux.createStore({
             playlist[index].active = true;
             this.songToPlay = playlist[index];
         }
-        if (this.activePlaylist < 0 || this.activePlaylist >= this.loadedPlaylists.length) {
+        if (this.activePlaylist < 0) {
             this.nowPlayingPlaylist = playlist;
             this.savePlaylistToStorage(this.nowPlayingPlaylist);
         } else {
@@ -126,17 +121,23 @@ var PlaylistStore = flux.createStore({
     },
     playlistFetched(serverPlaylist){
         var idx = this.loadedPlaylists.map(function(p) { return p.id; }).indexOf(serverPlaylist.id);
+        serverPlaylist.entry = this.initializePlaylist(serverPlaylist.entry, null, serverPlaylist.id);
         if(idx >= 0) {
-            serverPlaylist.entry = this.initializePlaylist(serverPlaylist.entry, null, idx);
             this.loadedPlaylists[idx] = serverPlaylist;
         } else {
-            serverPlaylist.entry = this.initializePlaylist(serverPlaylist.entry, null, this.loadedPlaylists.length);
             this.loadedPlaylists.push(serverPlaylist);
         }
+        this.editingPlaylist = serverPlaylist.id;
         this.emit(ServerPlaylistEvents.SINGLEFETCHED);
     },
     playlistUpdated(id) {
         ApiUtil.fetchPlaylist(id);
+    },
+    playlistDeleted() {
+        this.emit(PlaylistEvents.RELOAD);
+    },
+    playlistCreated(serverPlaylist) {
+        this.playlistFetched(serverPlaylist);
     },
     loadPlaylistFromStorage () {
         if(this.nowPlayingPlaylist.length === 0) {
@@ -153,15 +154,28 @@ var PlaylistStore = flux.createStore({
     savePlaylistToStorage(playlist) {
         sessionStorage.currentPlaylist = JSON.stringify(playlist);
     },
+    removePlaylistById(id, isDelete) {
+        if (id >= 0) {
+            var idx = this.loadedPlaylists.map(function(p) { return p.id; }).indexOf(id);
+            this.loadedPlaylists.splice(idx, 1);
+            var newId = -1;
+            if(idx > 0) { newId = this.loadedPlaylists[idx-1].id; }
+            if(this.activePlaylist === id) { this.activePlaylist = newId; }
+            if(this.editingPlaylist === id) { this.editingPlaylist = newId; }
+            if(isDelete) {
+                ApiUtil.deletePlaylist(id);
+            }
+        }
+    },
     exports: {
         getSongToStream() {
             return this.songToPlay;
         },
-        getPlaylist(index) {
-            return this.getPlaylistByIndex(index);
+        getPlaylist(id) {
+            return this.getPlaylistById(id);
         },
         getCurrentPlaylist() {
-            return this.getPlaylistByIndex(this.activePlaylist);
+            return this.getPlaylistById(this.activePlaylist);
         },
         fetchPlaylists() {
             ApiUtil.fetchPlaylists();
@@ -172,18 +186,19 @@ var PlaylistStore = flux.createStore({
         getLoadedPlaylistsSimple() {
             return {
                 active: this.activePlaylist,
-                numLoaded: this.loadedPlaylists.length
+                loaded: this.loadedPlaylists.map((playlist) => { return playlist.id })
             };
         },
         getServerPlaylists() {
             return this.serverPlaylists;
         },
         updatePlaylist(playlist) {
-            if(this.editingPlaylist < 0 || this.editingPlaylist >= this.loadedPlaylists.length) {
+            if(this.editingPlaylist < 0) {
                 this.nowPlayingPlaylist = playlist;
                 this.savePlaylistToStorage(playlist);
             } else {
-                this.loadedPlaylists[this.editingPlaylist].entry = playlist;
+                var idx = this.loadedPlaylists.map(function(p) { return p.id; }).indexOf(this.editingPlaylist);
+                this.loadedPlaylists[idx].entry = playlist;
             }
             this.emit(PlaylistEvents.RELOAD);
         },
@@ -191,14 +206,20 @@ var PlaylistStore = flux.createStore({
             this.editingPlaylist = index;
         },
         getEditingPlaylist() {
-            return this.getPlaylistByIndex(this.editingPlaylist);
+            return this.getPlaylistById(this.editingPlaylist);
         },
         saveEditingPlaylistToServer() {
-            var playlist = this.getPlaylistByIndex(this.editingPlaylist);
+            var playlist = this.getPlaylistById(this.editingPlaylist);
             ApiUtil.updatePlaylist(playlist);
         },
         createPlaylist(playlistName) {
             ApiUtil.createPlaylist(playlistName);
+        },
+        removePlaylist(playlistId) {
+            this.removePlaylistById(playlistId, false);
+        },
+        deletePlaylist(playlistId) {
+            this.removePlaylistById(playlistId, true);
         }
     }
 });

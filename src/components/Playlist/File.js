@@ -1,11 +1,11 @@
 var React = require('react');
 var PropTypes = React.PropTypes;
-var ApiUtil = require('../utils/ApiUtil');
-var actions = require('../actions/AlbumActions');
-var { ItemTypes } = require('../constants');
+var ApiUtil = require('../../utils/ApiUtil');
+var actions = require('../../actions/AlbumActions');
+var { ItemTypes } = require('../../constants');
 var flow = require('lodash/function/flow');
 //Stores
-var PlaylistStore = require('../stores/PlaylistStore');
+var PlaylistStore = require('../../stores/PlaylistStore');
 //Components
 var { DragSource, DropTarget } = require('react-dnd');
 
@@ -68,7 +68,26 @@ var PlaylistFile = React.createClass ({
       moveFile: PropTypes.func.isRequired
     },
     handleClick (song) {
-        actions.playSong(song, this.props.playlistIndex);
+        actions.playSong(song, this.props.playlistId);
+    },
+    handleRemoveSong () {
+        var playlist = PlaylistStore.getEditingPlaylist();
+        playlist.entry.splice(this.props.index, 1);
+        PlaylistStore.updatePlaylist(playlist.entry);
+    },
+    handleMouseOver () {
+        var node = this.getDOMNode();
+        var track = node.getElementsByClassName("duration-text")[0];
+        var icon = node.getElementsByClassName("icon-close")[0];
+        track.className = "duration-text hidden";
+        icon.className = "icon icon-close";
+    },
+    handleMouseOut () {
+        var node = this.getDOMNode();
+        var track = node.getElementsByClassName("duration-text")[0];
+        var icon = node.getElementsByClassName("icon-close")[0];
+        track.className = "duration-text";
+        icon.className = "icon icon-close hidden";
     },
     render () {
         var { connectDragSource, isDragging, connectDropTarget } = this.props;
@@ -84,10 +103,13 @@ var PlaylistFile = React.createClass ({
         if (isDragging) { classes.push("dragging") }
         
         return connectDragSource(connectDropTarget(
-          <li className={classes.join(" ")} draggable
-              onClick={this.handleClick.bind(this, song)}>
-              <div className="song-title">{song.title} - { song.artist }</div>
-              <div className="song-duration">{duration[0]}:{duration[1]}</div>
+          <li className={classes.join(" ")} draggable 
+              >
+              <div className="song-title" onClick={this.handleClick.bind(this, song)}>{song.title} - { song.artist }</div>
+              <div className="song-duration" onMouseOver={this.handleMouseOver} onMouseOut={this.handleMouseOut}>
+                <div className="duration-text">{duration[0]}:{duration[1]}</div>
+                <span className="icon icon-close hidden" onClick={this.handleRemoveSong}></span>
+              </div>
           </li>
         ));
     }

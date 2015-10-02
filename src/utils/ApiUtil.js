@@ -65,9 +65,18 @@ var ApiUtils = {
         });
     },
     createPlaylist(playlistName) {
+        //Create playlist, then go get the list and return the "new" one if successful
         var params = this.getAPIParams();
         xhr.getJSON(`${params.url}/rest/createPlaylist?${params.requiredParams}&name=${playlistName}`, (err, res) => {
-          //actions.playlistCreated();
+          xhr.getJSON(`${params.url}/rest/getPlaylists?${params.requiredParams}`, (err, res) => {
+                var retPlaylists = res['subsonic-response'].playlists.playlist;
+                if(retPlaylists.length > 0){
+                    var newPlaylist = retPlaylists[retPlaylists.length - 1];
+                    if(newPlaylist.name == playlistName) {
+                        actions.playlistCreated(newPlaylist);
+                    }
+                }
+            });
         });
     },
     updatePlaylist(playlist) {

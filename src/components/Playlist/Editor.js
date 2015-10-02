@@ -1,24 +1,25 @@
 var React = require('react');
 var update = require('react/lib/update');
-var actions = require('../actions/AlbumActions');
-var ApiUtil = require('../utils/ApiUtil');
-var { Events: { ServerPlaylistEvents } } = require('../constants');
+var actions = require('../../actions/AlbumActions');
+var ApiUtil = require('../../utils/ApiUtil');
+var { Events: { ServerPlaylistEvents } } = require('../../constants');
 //Stores
-var PlaylistStore = require('../stores/PlaylistStore');
+var PlaylistStore = require('../../stores/PlaylistStore');
 //Components
-var PlaylistFile = require('./PlaylistFile');
+var PlaylistFile = require('./File');
 var { Link } = require('react-router');
 var DragDropContext = require('react-dnd').DragDropContext;
 var HTML5Backend = require('react-dnd/modules/backends/HTML5');
 
 var PlaylistEditor = React.createClass({
     getInitialState () {
+        var editingPlaylist = PlaylistStore.getEditingPlaylist();
         return { 
             playlistTitle: "Now Playing",
             currentPlaylist: [],
             currentPlaying: null,
-            currentPlaylistIndex: -1,
-            loadedPlaylists: { active: -1, numLoaded: 0 }
+            currentPlaylistId: editingPlaylist.id,
+            loadedPlaylists: { active: -1, loaded: [] }
         };
     },
     moveSong(id, afterId) {
@@ -56,24 +57,23 @@ var PlaylistEditor = React.createClass({
     componentDidUpdate (prevProps) {
     },
     loadLatestPlaylist () {
-        var loadedPlaylists = PlaylistStore.getLoadedPlaylistsSimple();
-        PlaylistStore.changeEditingPlaylist(loadedPlaylists.numLoaded - 1);
+        var loadedPlaylist = PlaylistStore.getEditingPlaylist();
         this.setState({
-            currentPlaylistIndex: loadedPlaylists.numLoaded - 1
+            currentPlaylistId: loadedPlaylist.id
         });
         this.updateState();
     },
-    loadPlaylist(index) {
-        var playlist = PlaylistStore.getPlaylist(index);
-        PlaylistStore.changeEditingPlaylist(index);
+    loadPlaylist(id) {
+        var playlist = PlaylistStore.getPlaylist(id);
+        PlaylistStore.changeEditingPlaylist(id);
         this.setState({
-            currentPlaylistIndex: index,
+            currentPlaylistId: playlist.id,
             currentPlaylistTitle: playlist.name,
             currentPlaylist: playlist.entry
         });
     },
     updateState () {
-        var playlist = PlaylistStore.getPlaylist(this.state.currentPlaylistIndex);
+        var playlist = PlaylistStore.getPlaylist(this.state.currentPlaylistId);
         this.setState({
             currentPlaylistTitle: playlist.name,
             currentPlaylist: playlist.entry,
@@ -88,30 +88,31 @@ var PlaylistEditor = React.createClass({
             <div>
             <div className='playlist-title'>
                 <div>{this.state.currentPlaylistTitle}</div>
-                <div className='playlist-indicator-container'>{ [...Array(this.state.loadedPlaylists.numLoaded + 1)].map((x, i) => {
+                <div className='playlist-indicator-container'>{ [-1,...this.state.loadedPlaylists.loaded].map((playlistId, i) => {
                     var isPlayingClass = "";
                     var indicator = "○";
-                    if (i == parseInt(this.state.loadedPlaylists.active) + 1) {
+                    if (playlistId == this.state.loadedPlaylists.active) {
                         isPlayingClass = "playlist-active";
                     }
-                    if (i == parseInt(this.state.currentPlaylistIndex) + 1){
+                    if (playlistId == this.state.currentPlaylistId){
                         indicator = "●";
                     }
-                    return (<span className={isPlayingClass} key={"playlistactiveindicator_" + i } onClick={this.loadPlaylist.bind(this,(i-1))}>{indicator}</span>);
+                    return (<span className={isPlayingClass} key={"playlistactiveindicator_" + i } onClick={this.loadPlaylist.bind(this,(playlistId))}>{indicator}</span>);
                 })}</div>
+                <span className="icon icon-options clickable playlist-options-btn" onClick={this.props.handleOptionsClick}></span>
             </div>
             <div className="playlist-list-container scrollable">
                 <ul className='playlist'>
                     { currentPlaylist.map((song, i) => {
-                        var isActive = false;
-                        if (song.playlistIndex == this.state.loadedPlaylists.active && song.active) {
+                        var isActive = false
+                        if (song.playlistId == this.state.loadedPlaylists.active && song.active) {
                             isActive = true;
                         }
                         return (
                             <PlaylistFile
                               key={song.id}
                               index={i}
-                              playlistIndex={this.state.currentPlaylistIndex}
+                              playlistId={this.state.currentPlaylistId}
                               id={parseInt(song.id)}
                               song={song}
                               active={isActive}

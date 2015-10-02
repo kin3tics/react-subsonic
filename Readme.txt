@@ -1,6 +1,16 @@
 This is a simple, yet elegant front-end to subsonic written in React.
 
 Version History
+0.2.0
+    - Playlists
+        Server-Backed Playlists CRUD
+        Client-side changes to a Server-Backed playlist is not automatically saved
+        Load and switch between multiple playlists
+        "Now Playing" playlist cannot be saved, deleted, or removed
+        Individual songs can be removed from playlists
+    - Now Playing
+        Updates tab title when song is played
+        
 0.1.0
     - Login Screen
         Uses HTML5 localstorage to store the values (cannot be modified without clearing browser cache as of 0.1.0)
@@ -29,15 +39,14 @@ Version History
 TODOs
 
 High Priority
- - Playlist Manager
- - Design custom HTML5 audio player (audio tracking)
-
+ - Server configuration management
+ - Search Albums, Artists, and Songs
+ 
 Medium Priority
  - Album Details - Add single files to current playlist (via Drag'n'Drop)
  - Album details - Scale art better
- - Server configuration management
- - Search Albums, Artists, and Songs
  - Handle missing album art
+ - Noitification when client/server-side playlist is out of sync
  
 Low Priority
  - Enforce PropertyTypes everywhere

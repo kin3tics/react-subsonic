@@ -135,3 +135,50 @@ body {
     border-radius: 10px;
     -webkit-box-shadow: inset 0 0 6px rgba(255,255,255,.2);
 }
+
+/* icons */
+.icon-play {
+    background-image: url(../img/av/ic_play_circle_outline_white_24dp.png);
+}
+.icon-queue {
+    background-image: url(../img/av/ic_queue_music_white_24dp.png);
+}
+.icon-previous-song {
+    background-image: url(../img/av/ic_skip_previous_white_24dp.png);
+}
+.icon-play-song {
+    background-image: url(../img/av/ic_play_arrow_white_24dp.png);
+}
+.icon-pause-song {
+    background-image: url(../img/av/ic_pause_white_24dp.png);
+}
+.icon-next-song {
+    background-image: url(../img/av/ic_skip_next_white_24dp.png);
+}
+.icon-options {
+    background-image: url(../img/action/ic_settings_white_24dp.png);
+}
+.icon-send {
+    background-image: url(../img/action/ic_send_white_24dp.png);
+}
+.icon-save {
+    background-image: url(../img/action/ic_save_white_24dp.png);
+}
+.icon-create {
+    background-image: url(../img/action/ic_create_white_24dp.png);
+}
+.icon-add {
+    background-image: url(../img/action/ic_add_circle_white_24dp.png);
+}
+.icon-remove {
+    background-image: url(../img/action/ic_remove_circle_white_24dp.png);
+}
+.icon-chevron-left {
+    background-image: url(../img/navigation/ic_chevron_left_white_24dp.png);
+}
+.icon-close {
+    background-image: url(../img/navigation/ic_close_white_24dp.png);
+}
+.icon-delete {
+    background-image: url(../img/action/ic_delete_white_24dp.png);
+}
