@@ -38,6 +38,7 @@ var App = React.createClass({
         });
     },
     render () {
+        var { children } = this.props;
         var settings = this.state.settings;
         if (settings === null || !settings.valid || this.state.loggingIn) {
             return (
@@ -47,9 +48,9 @@ var App = React.createClass({
         
         return (
           <div>
-          <SidebarLeft />
+          { children ? children.sidebarLeft : <SidebarLeft />}
           <main>
-                { this.props.children ? this.props.children : (<div className="row album-list"></div>) }
+          { children ? children.content : (<div className="row album-list"></div>) }
           </main>
           <SidebarRight />
           </div>

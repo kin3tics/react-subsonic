@@ -17,7 +17,9 @@ var AlbumActions = flux.createActions([
     'playlistDeleted',
     'playlistUpdated',
     'playlistsFetched',
-    'playlistFetched'
+    'playlistFetched',
+    //Search Actions
+    'searchedLibrary'
 ]);
 
 module.exports = AlbumActions;

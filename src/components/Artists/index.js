@@ -8,8 +8,8 @@ var albumDetails = {
   }
 }
 
-module.exports = {
-  path: 'artists/:artistId',
+var artistDetails = {
+  path: ':artistId',
 
   getComponent (location, cb) {
     require.ensure([], (require) => {
@@ -18,4 +18,10 @@ module.exports = {
   },
   
   childRoutes: [albumDetails]
+}
+
+module.exports = {
+    path: 'artists',
+    components: { content: require('./components/ArtistAlbums'), sidebarLeft: require('./components/SidebarLeft') },
+    childRoutes: [artistDetails]
 }

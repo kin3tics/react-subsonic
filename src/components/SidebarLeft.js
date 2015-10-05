@@ -1,21 +1,22 @@
 var React = require('react');
-var actions = require('../actions/AlbumActions');
-//Stores
-var ArtistsStore = require('../stores/ArtistsStore');
 //Components
-var Library = require('./Navigation/Library');
+var Menu = require('./Navigation/Menu');
 var { Link } = require('react-router');
 
 var SidebarLeft = React.createClass({
+    //Menu State:
+    //  0: Menu
+    //  1: Libary (Initial)
+    getInitialState () {
+        return { menuState: 1 }
+    },
+    handleMenuSetState( state ) {
+        this.setState({
+            menuState: state
+        });
+    },
     render () {
-        return (
-          <div className="nav-container">
-            <div className="menu-bar">
-                <span className="icon icon-menu clickable"></span><h5> Library </h5>
-            </div>
-            <Library />
-          </div>
-        );
+        return (<Menu />);
     }
 });
 

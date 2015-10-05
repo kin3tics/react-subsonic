@@ -1,15 +1,18 @@
 var flux = require('flux-react');
 var actions = require('../actions/AlbumActions');
 var ApiUtil = require('../utils/ApiUtil');
+var { Events: {LibraryEvents } } = require('../constants');
 
 var AlbumsStore = flux.createStore({
     artistAlbumCache: {},
     albumCache:{},
+    searchResults: null,
     actions: [
         actions.loadAlbums,
         actions.loadedAlbums,
         actions.loadAlbum,
-        actions.loadedAlbum
+        actions.loadedAlbum,
+        actions.searchedLibrary
     ],
     loadAlbums (artistId, forceUpdate = false) {
         if(this.artistAlbumCache.hasOwnProperty(artistId) && !forceUpdate)
@@ -40,6 +43,10 @@ var AlbumsStore = flux.createStore({
         this.albumCache[album.id]["detailsLoaded"] = true;
         this.emit('albumDetails.cacheUpdated');
     },
+    searchedLibrary(searchResults) {
+        this.searchResults = searchResults;
+        this.emit(LibraryEvents.SEARCHRETURNED);
+    },
     exports: {
         getAlbums(artistId) {
             if(this.artistAlbumCache.hasOwnProperty(artistId))
@@ -51,6 +58,13 @@ var AlbumsStore = flux.createStore({
                 return this.albumCache[id];
             }
             return null;
+        },
+        searchLibrary(criteria) {
+            this.searchResults = null;
+            ApiUtil.searchLibrary(criteria);
+        },
+        getSearchResults() {
+            return this.searchResults;
         }
     }
 });

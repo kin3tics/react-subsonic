@@ -1,6 +1,18 @@
 This is a simple, yet elegant front-end to subsonic written in React.
 
 Version History
+0.3.0
+    - Menu
+        Three menu options (Library, Search, Options)
+    - Search
+        Put in keyword, view results by artist, album, and song
+        Artist results link to the artist page
+        Album results link to the album page
+        Songs can either be played immediately solo, or added to the currently editing playlist
+    - Options
+        View / Update the saved server settings (Server URL, Username, and Password)
+    - Misc
+        Refactored and expanded the routing
 0.2.0
     - Playlists
         Server-Backed Playlists CRUD
@@ -40,14 +52,17 @@ Version History
 TODOs
 
 High Priority
- - Server configuration management
- - Search Albums, Artists, and Songs
+ - Handle missing album art
  
 Medium Priority
  - Album Details - Add single files to current playlist (via Drag'n'Drop)
  - Album details - Scale art better
- - Handle missing album art
  - Noitification when client/server-side playlist is out of sync
+ - Favorites / Starred (view & update)
+ - Client-side Playlist Randomizer
+ - Server-side Random Songs
+ - Use Get/Save Play Queue API endpoints
+ 
  
 Low Priority
  - Enforce PropertyTypes everywhere
@@ -55,6 +70,13 @@ Low Priority
  - CSS Color editor
  - Webkit/Chrome notifications
  - Make it mobile-friendly
- - Restructure routing
  - MD5 hash & salt passwords
  - Playlist support duplicate entries
+ - Updating settings resulting in errors need to not kick back to login?
+ - Fix playlist height for Search and Options pages
+ - Ability to switch between tag api and folder api
+ - Add bookmarks
+ - User Management
+ - Chat messages
+ - Sharing
+ - Save "Now Playing" as a new playlist

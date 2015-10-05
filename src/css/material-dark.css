@@ -29,32 +29,18 @@ body {
     background-color: #ffd400;
 }
 
-.artist-list-container {
-    height: calc(100% - 40px);
-}
+
 .nav-container {
-    width: 240px;
-    position: absolute;
-    left:0;
     background-color: #202020;
-    height: 100%;
 }
 
-.nav-container li {
-    float: none;
-    padding: 0 15px;
-}
-
-.nav-container li:hover, .nav-container li.active {
+.nav-container li:hover, .nav-container li.active,
+.menu-list-container > div:hover {
     background-color: #ddd;
 }
 
 .nav-container a {
-    display: block;
-    padding: 0 15px;
     color: #DDD;
-    height: 24px;
-    line-height: 24px;
 }
 
 .nav-container a:hover {
@@ -92,6 +78,7 @@ body {
 }
 
 .song-div li .song-title:hover,
+.search-results-container li .song-title:hover,
 .indexes span:hover,
 .playlist-container li:hover,
 .playlist-active {
@@ -103,7 +90,8 @@ body {
     color: #FFFFFF;
 }
 
-.current-playing {
+.current-playing,
+.search-results-container li a:hover {
     color: #ffbf00;
 }
 
@@ -119,6 +107,11 @@ body {
 
 .login-panel {
     background-color: #202020;
+}
+
+.search-wrapper {
+    background-color: #DDD;
+    color: #202020;
 }
 
 /* custom scrollbar */
@@ -157,6 +150,9 @@ input:-webkit-autofill:focus {
 }
 
 /* icons */
+.icon-album {
+    background-image: url(../img/av/ic_album_white_24dp.png);
+}
 .icon-play {
     background-image: url(../img/av/ic_play_circle_outline_white_24dp.png);
 }
@@ -204,4 +200,10 @@ input:-webkit-autofill:focus {
 }
 .icon-menu {
     background-image: url(../img/navigation/ic_menu_white_24dp.png);
+}
+.icon-search {
+    background-image: url(../img/navigation/ic_search_white_24dp.png);
+}
+.icon-search-2 {
+    background-image: url(../img/navigation/ic_search_black_24dp.png);
 }

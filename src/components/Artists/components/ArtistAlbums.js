@@ -23,7 +23,8 @@ var ArtistAlbums = React.createClass({
     componentDidMount() {
         var node = React.findDOMNode(this.refs.albumList);
         node.addEventListener("mousewheel", this.handleMouseWheelEvt);
-        actions.loadAlbums(this.state.artistId);
+        if(this.state.artistId !== undefined)
+            actions.loadAlbums(this.state.artistId);
     },
     componentDidUpdate (prevProps) {
         if(this.props.params.artistId !== this.state.artistId) {

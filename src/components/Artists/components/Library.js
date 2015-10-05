@@ -1,7 +1,7 @@
 var React = require('react');
-var actions = require('../../actions/AlbumActions');
+var actions = require('../../../actions/AlbumActions');
 //Stores
-var ArtistsStore = require('../../stores/ArtistsStore');
+var ArtistsStore = require('../../../stores/ArtistsStore');
 //Components
 var { Link } = require('react-router');
 

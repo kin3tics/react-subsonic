@@ -1,6 +1,7 @@
 /* globals */
 main {
     padding-left: 240px;
+    width: calc(100% - 310px);
 }
 
 /* helper classes */
@@ -57,7 +58,7 @@ main {
     height: 40px;
     padding-top: 10px;
 }
-.menu-bar h5 {
+.menu-bar h5, .menu-list-container h5 {
     display: inline-block;
     vertical-align: middle;
     margin: 0 0 0 5px;
@@ -65,10 +66,35 @@ main {
 
 .nav-container {
     position: absolute;
+    top: 0;
     left:0;
-    top:0;
-    bottom:0;
+    width: 240px;
+    height: 100%;
     padding: 0;
+}
+
+.nav-container li {
+    float: none;
+    padding: 0 15px;
+}
+
+.nav-container a {
+    display: block;
+    padding: 0 15px;
+    height: 24px;
+    line-height: 24px;
+}
+
+.menu-list-container {
+    padding-top: 20px;
+}
+.menu-list-container a {
+    padding: 10px;
+    height: 100%;
+    vertical-align: middle;
+}
+.menu-list-container, .artist-list-container {
+    height: calc(100% - 40px);
 }
 
 .artist-list {
@@ -89,6 +115,65 @@ main {
     height: 75px;
 }
 
+.search-wrapper {
+    padding: 10px;
+    width: calc(100% - 20px);
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+}
+
+.search-wrapper input {
+    background-color: transparent;
+    border: none;
+    width: calc(100% - 24px);
+}
+
+.search-wrapper input:focus {
+    outline: none;
+}
+
+.search-results-container {
+    height: calc(100% - 70px);
+    position: absolute;
+    width: calc(100% - 560px);
+    margin-left: 10px;
+}
+
+.search-results-container .album-square {
+    height: 120px;
+    width: 120px;
+    background-size: 100%;
+    display: inline-block;
+    margin: 5px;
+}
+
+.search-results-container .album-square h5 {
+    font-size: small;
+    line-height: 15px;
+    margin-top:0;
+}
+.search-results-container .album-square span {
+    font-size: x-small;
+    line-height: 8px;
+}
+.search-results-container .album-details {
+    height: 120px;
+    width: 120px;
+    overflow: hidden;
+    padding: 2px;
+    position: absolute;
+}
+.search-results-container .song {
+    height: 22px;
+}
+
+.settings-container {
+    padding: 10px;
+}
+.settings-container h5 {
+    margin-top:0;
+}
 /* overlay */
 
 .overlay-blur {
@@ -333,8 +418,9 @@ main {
 /* now-playing */
 
 .now-playing-container {
-    right:0;
     position: absolute;
+    top: 0;
+    right:0;
     z-index:11;
     height: calc(100% - 240px);
     width: 310px;

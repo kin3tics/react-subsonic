@@ -98,6 +98,12 @@ var ApiUtils = {
         var params = this.getAPIParams();
         return `${params.url}/rest/stream?${params.requiredParams}&id=${id}`;
     },
+    searchLibrary(query) {
+        var params = this.getAPIParams();
+        xhr.getJSON(`${params.url}/rest/search3?${params.requiredParams}&query=${query}&songCount=50`, (err, res) => {
+          actions.searchedLibrary(res['subsonic-response'].searchResult3);
+        });
+    },
     pingServer() {
         var params = this.getAPIParams();
         xhr.getJSON(`${params.url}/rest/ping?${params.requiredParams}`, (err, res) => {

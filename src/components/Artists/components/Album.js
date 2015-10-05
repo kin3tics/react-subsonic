@@ -1,5 +1,4 @@
 var React = require('react');
-var actions = require('../../../actions/AlbumActions');
 var ApiUtil = require('../../../utils/ApiUtil');
 //Stores
 var AlbumsStore = require('../../../stores/AlbumsStore');

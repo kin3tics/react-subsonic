@@ -22,7 +22,9 @@ var rootRoute = {
   childRoutes: [{
     path: '/',
     component: require('./components/App'),
-    childRoutes: [require('./routes/Artists')]
+    childRoutes: [require('./components/Artists'),
+                  require('./components/Search'),
+                  require('./components/Options')]
   }]
 };
 

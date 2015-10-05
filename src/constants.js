@@ -23,6 +23,9 @@ module.exports = {
         ServerPlaylistEvents: {
             ALLFETCHED: "serverplaylist.playlistsfetched",
             SINGLEFETCHED: "serverplaylist.playlistfetched"
+        },
+        LibraryEvents: {
+            SEARCHRETURNED: "library.searchreturned"
         }
     }
 }
