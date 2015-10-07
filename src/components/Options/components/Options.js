@@ -4,11 +4,25 @@ var actions = require('../../../actions/UserActions');
 var UserStore = require('../../../stores/UserStore');
 
 var Options = React.createClass({
+    //transitionHook: null,
     getInitialState () {
         return { 
-            settings: UserStore.getSettings()
+            settings: UserStore.getSettings(),
+            isDirty: false
         };
     },
+    // Challenge Navigation if form is edited but not saved (Need to finalize at some point)
+    /*componentWillMount() {
+        var that = this;
+        this.transitionHook = this.props.history.listenBefore((isUnload, cb) => {
+            if(that.state.isDirty)
+                cb("you sure you want to leave?");
+            return cb(true);
+        });
+    },
+    componentWillUnmount() {
+        this.transitionHook();
+    },*/
     onUrlChange (e) {
         var settings = this.state.settings;
         settings.API = e.target.value;
@@ -26,7 +40,8 @@ var Options = React.createClass({
     },
     updateSettings(settings) {
         this.setState({
-            settings: settings
+            settings: settings,
+            isDirty: true
         });
     },
     saveSettings() {

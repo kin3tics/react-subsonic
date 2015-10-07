@@ -157,7 +157,8 @@ main {
     font-size: x-small;
     line-height: 8px;
 }
-.search-results-container .album-details {
+.search-results-container .album-details,
+.search-results-container .album-no-art-details {
     height: 120px;
     width: 120px;
     overflow: hidden;
@@ -313,14 +314,15 @@ main {
 
 /* album-details */
 
-.album-details {
+.album-details,
+.album-no-art-details {
     height: 100%;
     width: 100%;
     overflow: auto;
     white-space: normal;
 }
 
-.album-details .artist-name {
+.album-details .artist-name{
     margin-bottom: 10px;
 }
 
@@ -408,10 +410,16 @@ main {
     background-size: 100%;
 }
 
+.album-list .album-small > div {
+    overflow: hidden;
+}
+
 .album-list h5 {
     margin-top: 0;
 }
-.album-list .album-details {
+.album-list .album-details,
+.album-list .album-no-art-details,
+.now-playing .album-no-art {
     padding:10px;
 }
 
@@ -431,16 +439,21 @@ main {
     height: 305px;
 }
 
-.now-playing img {
+.now-playing img,
+.now-playing .album-no-art {
     height: 200px;
     width: 200px;
     margin-left: auto;
     margin-right: auto;
+    text-align: left;
+}
+
+.now-playing .album-no-art {
+    margin-bottom: 6px;
 }
 
 .now-playing h5 {
     margin: 0;
-    height: 27px;
     overflow: hidden;
 }
 
@@ -516,15 +529,20 @@ main {
         width: calc(100% - 550px);
         height: 120px;
     }
-    .album-list .album-small {
+    .album-list .album-small,
+    .now-playing img,
+    .now-playing .album-no-art{
         height: 100px;
         width: 100px;
     }
-    .album-list .album-small h5 {
+    
+    .album-list .album-small h5,
+    .now-playing .album-no-art h5 {
         font-size: small;
         line-height: 15px;
     }
-    .album-list .album-small span {
+    .album-list .album-small span,
+    .now-playing .album-no-art span {
         font-size: x-small;
         line-height: 12px;
     }
@@ -534,10 +552,7 @@ main {
     .now-playing {
         height: 205px;
     }
-    .now-playing img {
-        height: 100px;
-        width: 100px;
-    }
+
     .playlist-container {
         top: 205px;
     }

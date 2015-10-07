@@ -75,7 +75,7 @@ var SearchResults = React.createClass({
                     {artists}
                 </ul>
                 <h4>Albums</h4>
-                <div>
+                <div className="search-results-albums">
                     {albums}
                 </div>
                 <h4>Songs</h4>

@@ -1,9 +1,9 @@
 {
   "name": "react-subsonic",
-  "version": "0.2.0",
+  "version": "0.3.1",
   "description": "A simple and elegant front-end to Subsonic using React",
   "main": "webpack.config.js",
-  "author": { 
+  "author": {
     "name": "Jeremy Dunn",
     "email": "kin3tics@gmail.com"
   },
@@ -26,7 +26,8 @@
     "babel-loader": "^5.3.2",
     "webpack": "1.4.15",
     "webpack-dev-server": "1.7.0",
-    "lodash": "^3.10.1"
+    "lodash": "^3.10.1",
+    "history": "^1.12.2"
   },
   "devDependencies": {
     "6to5-core": "3.6.0",

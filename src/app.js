@@ -1,21 +1,12 @@
 var React = require('react');
+var { createHashHistory } = require("history");
 var { Router, Route } = require('react-router');
-/*var App = require('./components/App');
-var ArtistAlbums = require('./components/ArtistAlbums');
-var Album = require('./components/Album');
 
-React.render((
-  <Router>
-    <Route path="/" component={App}>
-        <Route path="artists" component={App}>
-        <Route path="artists/:artistId" component={ArtistAlbums}>
-            <Route path=":albumId" component={Album}>
-            </Route>
-        </Route>
-    </Route>
-  </Router>
-), document.body)
-*/
+const history = createHashHistory({
+    getUserConfirmation(message, callback) {
+        callback(window.confirm("My Special Window:" + message)) // The default behavior
+      }
+});
 
 var rootRoute = {
   component: 'div',
@@ -29,6 +20,6 @@ var rootRoute = {
 };
 
 React.render(
-  <Router routes={rootRoute} />,
+  <Router history={history} routes={rootRoute} />,
   document.body
 );

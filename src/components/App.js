@@ -7,10 +7,12 @@ var SidebarLeft = require("./SidebarLeft");
 var SidebarRight = require("./SidebarRight");
 var Login = require("./Login");
 
+import { RouteContext } from 'react-router'
 var { Events: {SettingsEvents} } = require('../constants');
 
 
 var App = React.createClass({
+    mixins: [RouteContext],
     getInitialState () {
         return { settings: UserStore.getSettings(),
                  loggingIn: false

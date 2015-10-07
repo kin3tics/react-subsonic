@@ -101,6 +101,8 @@ body {
     opacity: 0.7;
 }
 
+
+
 .album-list .album-small {
     background-Color:"#575757",
 }
@@ -206,4 +208,26 @@ input:-webkit-autofill:focus {
 }
 .icon-search-2 {
     background-image: url(../img/navigation/ic_search_black_24dp.png);
+}
+
+.album-list > a:nth-child(5n + 0) > div,
+.search-results-albums  a:nth-child(5n + 0) > div {
+    background-color: #006aff;
+}
+.album-list > a:nth-child(5n + 1) > div,
+.search-results-albums  a:nth-child(5n + 1) > div {
+    background-color: #9500ff;
+}
+.album-list > a:nth-child(5n + 2) > div,
+.search-results-albums  a:nth-child(5n + 2) > div {
+    background-color: #ff006a;
+}
+.album-list > a:nth-child(5n + 3) > div,
+.search-results-albums  a:nth-child(5n + 3) > div,
+.now-playing .album-no-art {
+    background-color: #ff9500;
+}
+.album-list > a:nth-child(5n + 4) > div,
+.search-results-albums  a:nth-child(5n + 4) > div {
+    background-color: #49b100;
 }

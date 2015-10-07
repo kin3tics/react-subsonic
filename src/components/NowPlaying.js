@@ -126,11 +126,18 @@ var NowPlaying = React.createClass({
         
         var artistLink = `/artists/${song.artistId}`;
         var albumLink = `${artistLink}/${song.albumId}`;
-
+        
+        var coverArt = '';
+        if(song.coverArt) {
+            coverArt = (<img src={song.coverArt !== null ? ApiUtil.getAlbumArtUrl(song.coverArt) : ""} />);
+        } else {
+            coverArt = (<div className='album-no-art'><h5>{song.album}</h5><span>{song.artist}</span></div>)
+        }
+        
         return (
             <div className="now-playing">
                 <div className="text-center">
-                    <Link to={albumLink}><img src={song.coverArt !== null ? ApiUtil.getAlbumArtUrl(song.coverArt) : ""} /></Link>
+                    <Link to={albumLink}>{coverArt}</Link>
                     <Link to={albumLink}><h5 title={song.title}>{ song.title.length > 20 ? song.title.substring(0,17) + "..." : song.title }</h5></Link>
                     <Link to={artistLink}><h6>{song.artist}</h6></Link>
                     <div className="audio-controls">

@@ -1,6 +1,8 @@
 This is a simple, yet elegant front-end to subsonic written in React.
 
 Version History
+0.3.1
+    - Missing album art now shows the album title and artist on a colored background
 0.3.0
     - Menu
         Three menu options (Library, Search, Options)
@@ -51,18 +53,19 @@ Version History
 
 TODOs
 
+Bugs
+ - When playlist finishes: "Cannot read property 'artistId' of null
+
 High Priority
- - Handle missing album art
+ - Client-side Playlist Randomizer
+ - Server-side Random Songs
+ - Use Get/Save Play Queue API endpoints
  
 Medium Priority
  - Album Details - Add single files to current playlist (via Drag'n'Drop)
  - Album details - Scale art better
  - Noitification when client/server-side playlist is out of sync
  - Favorites / Starred (view & update)
- - Client-side Playlist Randomizer
- - Server-side Random Songs
- - Use Get/Save Play Queue API endpoints
- 
  
 Low Priority
  - Enforce PropertyTypes everywhere
