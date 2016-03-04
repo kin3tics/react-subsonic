@@ -1,7 +1,7 @@
 module.exports = {
-    API: "http://kin3tical.subsonic.org",
-    APIUser: "kin3tics", 
-    APIPass: "k2210357", 
+    API: "http://myserver.subsonic.org",
+    APIUser: "test", 
+    APIPass: "password", 
     APIVersion: "1.12",
     APIClient: "React-Subsonic",
     ItemTypes: {
