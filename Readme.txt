@@ -1,6 +1,15 @@
 This is a simple, yet elegant front-end to subsonic written in React.
 
 Version History
+0.3.2
+    - Updating libraries to current versions (as of 05/21/2016)
+    - Last FM Scrobbling
+        Songs that have played unprohibited for some time will submit a scrobble to the API
+    - Webkit Notifications
+        On song change a webkit notification will appear
+    - Misc
+        Changed style of current position through song to inline
+        Removed need for 'materialize' style sheet
 0.3.1
     - Missing album art now shows the album title and artist on a colored background
 0.3.0
@@ -54,6 +63,8 @@ Version History
 TODOs
 
 Bugs
+ - Drag 'n' Drop no longer works after upgrade
+ - When page reloads: "Cannot read property 'artistId' of null"
  - When playlist finishes: "Cannot read property 'artistId' of null
 
 High Priority

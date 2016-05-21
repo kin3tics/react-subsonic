@@ -135,6 +135,27 @@ var NowPlaying = React.createClass({
         node.play();
         pauseButton.className = "icon icon-pause-song clickable";
         document.title = `${this.state.song.title} - ${this.state.song.artist} - React-Subsonic`;
+        this.createNotification();
+    },
+    createNotification () {
+        var coverArtUrl = '';
+        if(this.state.song.coverArt) {
+            coverArtUrl = ApiUtil.getAlbumArtUrl(this.state.song.coverArt);
+        }
+        if(Notification) {
+            if (Notification.permission !== "granted") {
+                Notification.requestPermission();
+            } else {
+                var notification = new Notification(this.state.song.title, 
+                {
+                  icon: coverArtUrl,
+                  body: this.state.song.artist + " - " + this.state.song.album,
+                });
+                setTimeout(function(){
+                    notification.close();
+                }, 5000);
+            }
+        }
     },
     render () {
         var song = this.state.song;
