@@ -37,12 +37,10 @@ body {
 .nav-container li:hover, .nav-container li.active,
 .menu-list-container > div:hover {
     background-color: #ddd;
+
 }
 
-.nav-container a {
-    color: #DDD;
-}
-
+.nav-container li:hover a,
 .nav-container a:hover {
     color: #444;
 }

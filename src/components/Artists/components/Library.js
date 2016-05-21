@@ -1,4 +1,5 @@
 var React = require('react');
+var ReactDOM = require('react-dom');
 var actions = require('../../../actions/AlbumActions');
 //Stores
 var ArtistsStore = require('../../../stores/ArtistsStore');
@@ -24,7 +25,7 @@ var Library = React.createClass({
         });
     },
     scrollToRef (index) {
-        var node = React.findDOMNode(this.refs[index]);
+        var node = ReactDOM.findDOMNode(this.refs[index]);
         node.scrollIntoView();
     },
     render () {

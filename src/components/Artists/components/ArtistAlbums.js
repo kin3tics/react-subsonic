@@ -1,4 +1,5 @@
 var React = require('react');
+var ReactDOM = require('react-dom');
 var ReactPropTypes = React.PropTypes;
 var actions = require('../../../actions/AlbumActions');
 //Stores
@@ -21,7 +22,7 @@ var ArtistAlbums = React.createClass({
         AlbumsStore.off('albums.*', this.updateState);
     },
     componentDidMount() {
-        var node = React.findDOMNode(this.refs.albumList);
+        var node = ReactDOM.findDOMNode(this.refs.albumList);
         node.addEventListener("mousewheel", this.handleMouseWheelEvt);
         if(this.state.artistId !== undefined)
             actions.loadAlbums(this.state.artistId);

@@ -1,7 +1,63 @@
 /* globals */
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
 main {
     padding-left: 240px;
     width: calc(100% - 310px);
+}
+
+body {
+    margin: 0;
+}
+
+article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, summary {
+    display: block;
+}
+
+html {
+    line-height: 1.5;
+    font-family: "Roboto", sans-serif;
+    font-weight: normal;
+    color: rgba(0,0,0,0.87);
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+h4 {
+    font-size: 2.28rem;
+    line-height: 2.508rem;
+    margin: 1.14rem 0 0.912rem 0;
+}
+
+h5 {
+    font-size: 1.64rem;
+    line-height: 1.804rem;
+    margin: 0.82rem 0 0.656rem 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 400;
+}
+
+ul {
+    padding: 0;
+    list-style-type: none;
+}
+
+ul li {
+    list-style-type: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+.row {
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
 }
 
 /* helper classes */
@@ -202,7 +258,7 @@ main {
 /* playlist */
 .playlist-container {
     position: absolute;
-    top: 305px;
+    top: 300px;
     bottom: 0;
     left: 0;
     right: 0;
@@ -292,10 +348,11 @@ main {
 
 .song-title {
     display: inline-block;
-    width: 79%;
-    overflow:hidden;
+    width: calc(100% - 108px);
+    overflow: hidden;
     white-space: nowrap;
     position: absolute;
+    text-overflow: ellipsis;
 }
 
 .song-duration {
@@ -327,11 +384,20 @@ main {
 }
 
 .album-details .title-div {
+    position: absolute;
+    right: 310px;
+    left: 0;
+    
     padding-left: 10px;
+    
+    
 }
 
 .album-details .title-div h4 {
     margin-top: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .title-div, .song-div {
@@ -436,7 +502,7 @@ main {
 
 .now-playing {
     padding: 10px 5px;
-    height: 305px;
+    height: 300px;
 }
 
 .now-playing img,
@@ -466,7 +532,7 @@ main {
 .audio-controls {
     position: relative;
     width: 200px;
-    height: 50px;
+    height: 30px;
     margin-left:auto;
     margin-right:auto;
 }
@@ -476,7 +542,6 @@ main {
 .audio-controls .line {
     position:absolute;
     height: 6px;
-    top: 3px;
     border-radius: 2px;
     background: rgba(255,255,255,.2);
     cursor:pointer;
@@ -484,9 +549,9 @@ main {
     left: 0;
 }
 .audio-controls .playhead{
-    width: 20px;
-    height: 12px;
-    border-radius: 5px;
+    width: 0;
+    height: 6px;
+    border-radius: 2px;
     margin-left:-1px;
     background-color: #DDD;
     cursor: pointer;

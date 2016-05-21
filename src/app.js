@@ -1,12 +1,8 @@
 var React = require('react');
-var { createHashHistory } = require("history");
-var { Router, Route } = require('react-router');
-
-const history = createHashHistory({
-    getUserConfirmation(message, callback) {
-        callback(window.confirm("My Special Window:" + message)) // The default behavior
-      }
-});
+var { render } = require('react-dom');
+//var { createHashHistory } = require ('history');
+var { Router, Route, hashHistory } = require('react-router');
+var App = require('./components/App');
 
 var rootRoute = {
   component: 'div',
@@ -19,7 +15,7 @@ var rootRoute = {
   }]
 };
 
-React.render(
-  <Router history={history} routes={rootRoute} />,
-  document.body
+render(
+  (<Router history={hashHistory} routes={rootRoute} />),
+  document.getElementById('ReactSubsonic')
 );

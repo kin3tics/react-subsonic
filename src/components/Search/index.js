@@ -2,7 +2,7 @@
 var searchCriteria = {
     path: ':searchCriteria',
     getComponent (location, cb) {
-    require.ensure([], (require) => {
+    require.ensure([], function(require) {
       cb(null, require('./components/SearchResults'))
     })
   }

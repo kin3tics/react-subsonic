@@ -1,4 +1,11 @@
 module.exports = {
     path: 'options',
-    components: { content: require('./components/Options'), sidebarLeft: require('./components/SidebarLeft') }
+    getComponents(nextState, cb) {
+    	require.ensure([], function(require) {
+    		cb(null, {
+    			content: require('./components/Options'), 
+    			sidebar: require('./components/SidebarLeft')
+    		})
+    	})
+    }
 }

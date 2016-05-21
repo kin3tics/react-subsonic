@@ -1,4 +1,5 @@
 var React = require('react');
+var ReactDOM = require('react-dom');
 var actions = require('../actions/AlbumActions');
 var ApiUtil = require('../utils/ApiUtil');
 //Stores
@@ -26,7 +27,7 @@ var NowPlaying = React.createClass({
         PlaylistStore.off('streaming.ready', this.updateStateLoadAndPlay);
     },
     componentDidMount () {
-        var node = React.findDOMNode(this.refs.audioTracker);
+        var node = ReactDOM.findDOMNode(this.refs.audioTracker);
         node.addEventListener('ended', this.getNextTrack);
         node.addEventListener("timeupdate", this.timeUpdate, false);
         node.addEventListener("canplaythrough", this.updateDuration, false);
@@ -42,13 +43,13 @@ var NowPlaying = React.createClass({
         return false;
     },
     handleTimelineClick (event) {
-        var music = React.findDOMNode(this.refs.audioTracker);
-        this.movePlayHead(event);
+        var music = ReactDOM.findDOMNode(this.refs.audioTracker);
+        this.movePlayHead2(event);
         music.currentTime = this.state.duration * this.clickPercent(event);  
     },
     handlePlayPause() {
-        var node = React.findDOMNode(this.refs.audioTracker);
-        var pauseButton = React.findDOMNode(this.refs.playButton);
+        var node = ReactDOM.findDOMNode(this.refs.audioTracker);
+        var pauseButton = ReactDOM.findDOMNode(this.refs.playButton);
         if (!node.paused) {
             node.pause();
             pauseButton.className = "icon icon-play-song clickable";
@@ -57,43 +58,43 @@ var NowPlaying = React.createClass({
             pauseButton.className = "icon icon-pause-song clickable";
             document.title = `${this.state.song.title} - ${this.state.song.artist} - React-Subsonic`;
         }
-    },
+    }, 
     updateDuration() {
-        var node = React.findDOMNode(this.refs.audioTracker);
+        var node = ReactDOM.findDOMNode(this.refs.audioTracker);
         this.setState({
             duration: node.duration
         });
     },
-    movePlayHead (e) {
-        var timeline = React.findDOMNode(this.refs.line);
-        var playhead = React.findDOMNode(this.refs.playHead);
+    movePlayHead2 (e) {
+        var timeline = ReactDOM.findDOMNode(this.refs.line);
+        var playhead = ReactDOM.findDOMNode(this.refs.playHead);
         var timelineBox = timeline.getBoundingClientRect();
-        var newMargLeft = e.pageX - timelineBox.left;
-        var timelineWidth = timeline.offsetWidth - playhead.offsetWidth;
-        if (newMargLeft >= 0 && newMargLeft <= timelineWidth) {
-            playhead.style.marginLeft = newMargLeft + "px";
+        var playheadWidth = playhead.offsetWidth;
+        var timelineWidth = timeline.offsetWidth;
+        if (playheadWidth >= 0 && playheadWidth <= timelineWidth) {
+            playhead.style.width = playheadWidth + "px";
         }
-        if (newMargLeft < 0) {
-            playhead.style.marginLeft = "0px";
+        if (playheadWidth < 0) {
+            playhead.style.width = "4px";
         }
-        if (newMargLeft > timelineWidth) {
-        playhead.style.marginLeft = timelineWidth + "px";
+        if (playheadWidth > timelineWidth) {
+            playhead.style.width = timelineWidth + "px";
         }
     },
     clickPercent(e) {
-        var timeline = React.findDOMNode(this.refs.line);
+        var timeline = ReactDOM.findDOMNode(this.refs.line);
         var timelineBox = timeline.getBoundingClientRect();
-        var playhead = React.findDOMNode(this.refs.playHead);
-        var timelineWidth = timeline.offsetWidth - playhead.offsetWidth;
+        var playhead = ReactDOM.findDOMNode(this.refs.playHead);
+        var timelineWidth = timeline.offsetWidth;
         return (e.pageX - timelineBox.left) / timelineWidth;
     },
     timeUpdate(e) {
-        var music = React.findDOMNode(this.refs.audioTracker);
-        var playhead = React.findDOMNode(this.refs.playHead);
-        var timeline = React.findDOMNode(this.refs.line);
-        var timelineWidth = timeline.offsetWidth - playhead.offsetWidth;
+        var music = ReactDOM.findDOMNode(this.refs.audioTracker);
+        var playhead = ReactDOM.findDOMNode(this.refs.playHead);
+        var timeline = ReactDOM.findDOMNode(this.refs.line);
+        var timelineWidth = timeline.offsetWidth;
         var playPercent = timelineWidth * (music.currentTime / this.state.duration);
-        playhead.style.marginLeft = playPercent + "px";
+        playhead.style.width = playPercent + "px";
     },
     getPrevTrack() {
         actions.playlistMovePrev();
@@ -105,8 +106,8 @@ var NowPlaying = React.createClass({
         this.setState({
             song: PlaylistStore.getSongToStream()
         });
-        var node = React.findDOMNode(this.refs.audioTracker);
-        var pauseButton = React.findDOMNode(this.refs.playButton);
+        var node = ReactDOM.findDOMNode(this.refs.audioTracker);
+        var pauseButton = ReactDOM.findDOMNode(this.refs.playButton);
         node.load();
         pauseButton.className = "icon icon-play-song clickable";
     },
@@ -114,8 +115,8 @@ var NowPlaying = React.createClass({
         this.setState({
             song: PlaylistStore.getSongToStream()
         });
-        var node = React.findDOMNode(this.refs.audioTracker);
-        var pauseButton = React.findDOMNode(this.refs.playButton);
+        var node = ReactDOM.findDOMNode(this.refs.audioTracker);
+        var pauseButton = ReactDOM.findDOMNode(this.refs.playButton);
         node.load();
         node.play();
         pauseButton.className = "icon icon-pause-song clickable";

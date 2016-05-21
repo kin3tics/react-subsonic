@@ -3,7 +3,7 @@ var PropTypes = React.PropTypes;
 var ApiUtil = require('../../utils/ApiUtil');
 var actions = require('../../actions/AlbumActions');
 var { ItemTypes } = require('../../constants');
-var flow = require('lodash/function/flow');
+var _ = require('lodash');
 //Stores
 var PlaylistStore = require('../../stores/PlaylistStore');
 //Components
@@ -115,7 +115,7 @@ var PlaylistFile = React.createClass ({
     }
 });
 
-export default flow(
+module.exports = _.flow(
   DragSource(ItemTypes.AUDIOFILE, fileSource, collect),
   DropTarget(ItemTypes.AUDIOFILE, fileTarget, dropTarget)
 )(PlaylistFile);

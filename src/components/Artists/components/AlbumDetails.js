@@ -107,7 +107,7 @@ var Album = React.createClass({
                     <div style={blurStyle} className="overlay-blur"></div>
                     <div className="album-details overlay">
                         <div className="title-div">
-                            <h4>{album.name}</h4>
+                            <h4 title={album.name}>{album.name}</h4>
                             <span className="artist-name">{album.artist}</span>
                             <br/><span>{album.song.length} Tracks</span> | <span> {albumDuration[0]}:{albumDuration[1]} </span> | <span title={album.genre}> {album.genre} </span> | <span title="Play Album" className="icon icon-play clickable" onClick={this.handlePlayAlbum}></span> | <span title="Add to Playlist" className="icon icon-queue clickable" onClick={this.handleQueueAlbum}></span>
                         </div>

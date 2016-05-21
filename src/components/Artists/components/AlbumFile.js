@@ -1,4 +1,5 @@
 var React = require('react');
+var ReactDOM = require('react-dom');
 var actions = require('../../../actions/AlbumActions');
 //Stores
 var AlbumsStore = require('../../../stores/AlbumsStore');
@@ -20,14 +21,14 @@ var AlbumFile = React.createClass({
         return duration;
     },
     handleMouseOver () {
-        var node = this.getDOMNode();
+        var node = ReactDOM.findDOMNode(this);
         var track = node.getElementsByClassName("song-track")[0];
         var icon = node.getElementsByClassName("icon-play")[0];
         track.className = "song-track hidden";
         icon.className = "icon icon-play";
     },
     handleMouseOut () {
-        var node = this.getDOMNode();
+        var node = ReactDOM.findDOMNode(this);
         var track = node.getElementsByClassName("song-track")[0];
         var icon = node.getElementsByClassName("icon-play")[0];
         track.className = "song-track";

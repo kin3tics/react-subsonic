@@ -9,7 +9,7 @@ var PlaylistStore = require('../../stores/PlaylistStore');
 var PlaylistFile = require('./File');
 var { Link } = require('react-router');
 var DragDropContext = require('react-dnd').DragDropContext;
-var HTML5Backend = require('react-dnd/modules/backends/HTML5');
+var HTML5Backend = require('react-dnd-html5-backend');
 
 var PlaylistEditor = React.createClass({
     getInitialState () {
@@ -141,4 +141,4 @@ var PlaylistEditor = React.createClass({
     }
 });
 
-export default DragDropContext(HTML5Backend)(PlaylistEditor);
+module.exports = DragDropContext(HTML5Backend)(PlaylistEditor);

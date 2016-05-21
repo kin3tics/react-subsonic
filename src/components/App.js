@@ -7,12 +7,17 @@ var SidebarLeft = require("./SidebarLeft");
 var SidebarRight = require("./SidebarRight");
 var Login = require("./Login");
 
-import { RouteContext } from 'react-router'
+//var { RouteContext } = require('react-router');
 var { Events: {SettingsEvents} } = require('../constants');
 
 
 var App = React.createClass({
-    mixins: [RouteContext],
+    contextTypes: {
+        route: React.PropTypes.object
+    },
+    getChildContext() {
+        route: this.props.route
+    },
     getInitialState () {
         return { settings: UserStore.getSettings(),
                  loggingIn: false
@@ -40,7 +45,7 @@ var App = React.createClass({
         });
     },
     render () {
-        var { children } = this.props;
+        var { content, sidebarLeft } = this.props;
         var settings = this.state.settings;
         if (settings === null || !settings.valid || this.state.loggingIn) {
             return (
@@ -50,9 +55,9 @@ var App = React.createClass({
         
         return (
           <div>
-          { children ? children.sidebarLeft : <SidebarLeft />}
+          { sidebarLeft ? sidebarLeft : <SidebarLeft />}
           <main>
-          { children ? children.content : (<div className="row album-list"></div>) }
+          { content ? content : (<div className="row album-list"></div>) }
           </main>
           <SidebarRight />
           </div>

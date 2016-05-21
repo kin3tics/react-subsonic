@@ -2,7 +2,7 @@
 var albumDetails = {
     path: ':albumId',
     getComponent (location, cb) {
-    require.ensure([], (require) => {
+    require.ensure([], function(require) {
       cb(null, require('./components/Album'))
     })
   }
@@ -12,7 +12,7 @@ var artistDetails = {
   path: ':artistId',
 
   getComponent (location, cb) {
-    require.ensure([], (require) => {
+    require.ensure([], function(require) {
       cb(null, require('./components/ArtistAlbums'))
     })
   },
