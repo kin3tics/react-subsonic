@@ -11,11 +11,14 @@ var NowPlaying = React.createClass({
     getInitialState () {
         return { 
             song: {
+                id: 0,
                 coverArt: null,
                 title: "",
                 artist: ""
             },
-            duration: 0
+            duration: 0,
+            uninterruptedDuration: 0,
+            songHasScrobbled: 0
         };
     },
     componentWillMount () {
@@ -56,6 +59,7 @@ var NowPlaying = React.createClass({
         } else {
             node.play();
             pauseButton.className = "icon icon-pause-song clickable";
+            this.state.uninterruptedDuration = 0;
             document.title = `${this.state.song.title} - ${this.state.song.artist} - React-Subsonic`;
         }
     }, 
@@ -86,6 +90,7 @@ var NowPlaying = React.createClass({
         var timelineBox = timeline.getBoundingClientRect();
         var playhead = ReactDOM.findDOMNode(this.refs.playHead);
         var timelineWidth = timeline.offsetWidth;
+        this.state.uninterruptedDuration = 0;
         return (e.pageX - timelineBox.left) / timelineWidth;
     },
     timeUpdate(e) {
@@ -95,6 +100,11 @@ var NowPlaying = React.createClass({
         var timelineWidth = timeline.offsetWidth;
         var playPercent = timelineWidth * (music.currentTime / this.state.duration);
         playhead.style.width = playPercent + "px";
+        this.state.uninterruptedDuration += 1;
+        if(this.state.uninterruptedDuration > 150 && this.state.song.id > 0 && !this.state.songHasScrobbled) {
+            ApiUtil.scrobbleSong(this.state.song.id);
+            this.state.songHasScrobbled = true;
+        }
     },
     getPrevTrack() {
         actions.playlistMovePrev();
@@ -104,7 +114,9 @@ var NowPlaying = React.createClass({
     },
     updateStateLoad () {
         this.setState({
-            song: PlaylistStore.getSongToStream()
+            song: PlaylistStore.getSongToStream(),
+            songHasScrobbled: false,
+            uninterruptedDuration: 0
         });
         var node = ReactDOM.findDOMNode(this.refs.audioTracker);
         var pauseButton = ReactDOM.findDOMNode(this.refs.playButton);
@@ -113,7 +125,9 @@ var NowPlaying = React.createClass({
     },
     updateStateLoadAndPlay () {
         this.setState({
-            song: PlaylistStore.getSongToStream()
+            song: PlaylistStore.getSongToStream(),
+            songHasScrobbled: false,
+            uninterruptedDuration: 0
         });
         var node = ReactDOM.findDOMNode(this.refs.audioTracker);
         var pauseButton = ReactDOM.findDOMNode(this.refs.playButton);

@@ -104,6 +104,12 @@ var ApiUtils = {
           actions.searchedLibrary(res['subsonic-response'].searchResult3);
         });
     },
+    scrobbleSong(id) {
+        var params = this.getAPIParams();
+        xhr.getJSON(`${params.url}/rest/scrobble?${params.requiredParams}&id=${id}`, () => {
+            //no action needed
+        });
+    },
     pingServer() {
         var params = this.getAPIParams();
         xhr.getJSON(`${params.url}/rest/ping?${params.requiredParams}`, (err, res) => {

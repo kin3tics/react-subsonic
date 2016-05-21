@@ -49,7 +49,7 @@ var ArtistAlbums = React.createClass({
         });
     },
     handleMouseWheelEvt (event) {
-        var node = React.findDOMNode(this.refs.albumList);
+        var node = ReactDOM.findDOMNode(this.refs.albumList);
         if (node.doScroll)
             node.doScroll(event.wheelDelta>0?"left":"right");
         else if ((event.wheelDelta || event.detail) > 0)
