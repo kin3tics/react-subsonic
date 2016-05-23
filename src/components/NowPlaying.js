@@ -107,9 +107,13 @@ var NowPlaying = React.createClass({
         }
     },
     getPrevTrack() {
+        var node = ReactDOM.findDOMNode(this.refs.audioTracker);
+        node.pause();
         actions.playlistMovePrev();
     },
     getNextTrack() {
+        var node = ReactDOM.findDOMNode(this.refs.audioTracker); 
+        node.pause();
         actions.playlistMoveNext();
     },
     updateStateLoad () {

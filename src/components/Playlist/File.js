@@ -1,4 +1,5 @@
 var React = require('react');
+var ReactDOM = require('react-dom');
 var PropTypes = React.PropTypes;
 var ApiUtil = require('../../utils/ApiUtil');
 var actions = require('../../actions/AlbumActions');
@@ -31,7 +32,7 @@ const fileTarget = {
         const draggedIndex = monitor.getItem.index;
         
         //Get DOM Location Info
-        const boundingRect = React.findDOMNode(component).getBoundingClientRect();
+        const boundingRect = ReactDOM.findDOMNode(component).getBoundingClientRect();
         const clientOffset = monitor.getClientOffset();
         const ownMiddleY = (boundingRect.bottom - boundingRect.top) / 2;
         const offsetY = clientOffset.y - boundingRect.top;
@@ -76,14 +77,14 @@ var PlaylistFile = React.createClass ({
         PlaylistStore.updatePlaylist(playlist.entry);
     },
     handleMouseOver () {
-        var node = this.getDOMNode();
+        var node = ReactDOM.findDOMNode(this);
         var track = node.getElementsByClassName("duration-text")[0];
         var icon = node.getElementsByClassName("icon-close")[0];
         track.className = "duration-text hidden";
         icon.className = "icon icon-close";
     },
     handleMouseOut () {
-        var node = this.getDOMNode();
+        var node = ReactDOM.findDOMNode(this);
         var track = node.getElementsByClassName("duration-text")[0];
         var icon = node.getElementsByClassName("icon-close")[0];
         track.className = "duration-text";

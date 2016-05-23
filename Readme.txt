@@ -1,6 +1,11 @@
 This is a simple, yet elegant front-end to subsonic written in React.
 
 Version History
+0.3.3
+    - Bugfix
+        Drag 'n' Drop in playlist reordering works again
+    - Misc
+        Maxing audio stream to 320k
 0.3.2
     - Updating libraries to current versions (as of 05/21/2016)
     - Last FM Scrobbling
@@ -63,7 +68,6 @@ Version History
 TODOs
 
 Bugs
- - Drag 'n' Drop no longer works after upgrade
  - When page reloads: "Cannot read property 'artistId' of null"
  - When playlist finishes: "Cannot read property 'artistId' of null
 

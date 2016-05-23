@@ -2,7 +2,7 @@ module.exports = {
     API: "http://myserver.subsonic.org",
     APIUser: "test", 
     APIPass: "password", 
-    APIVersion: "1.12",
+    APIVersion: "1.14",
     APIClient: "React-Subsonic",
     ItemTypes: {
         AUDIOFILE: "audiofile"

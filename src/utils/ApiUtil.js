@@ -96,7 +96,7 @@ var ApiUtils = {
     },
     getStreamingUrl(id) {
         var params = this.getAPIParams();
-        return `${params.url}/rest/stream?${params.requiredParams}&id=${id}`;
+        return `${params.url}/rest/stream?${params.requiredParams}&id=${id}&maxBitRate=320&estimateContentLength=true`;
     },
     searchLibrary(query) {
         var params = this.getAPIParams();
