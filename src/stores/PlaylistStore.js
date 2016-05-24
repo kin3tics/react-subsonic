@@ -23,7 +23,8 @@ var PlaylistStore = flux.createStore({
         actions.playlistFetched,
         actions.playlistUpdated,
         actions.playlistDeleted,
-        actions.playlistCreated
+        actions.playlistCreated,
+        actions.playlistShuffle
     ],
     playSong (song, playlistId) {
         if(playlistId !== undefined && playlistId >= 0) {
@@ -111,6 +112,35 @@ var PlaylistStore = flux.createStore({
             this.savePlaylistToStorage(this.nowPlayingPlaylist);
         } else {
             //save other loaded playlists to storage??
+        }
+        this.emit(StreamingEvents.READY);
+    },
+    playlistShuffle () {
+        var index;
+        var playlist = this.getPlaylistById(this.activePlaylist).entry;
+        var currentIndex = playlist.length;
+        var temporaryValue;
+        var randomIndex;
+
+        // While there remain elements to shuffle...
+        while (0 !== currentIndex) {
+            // Pick a remaining element...
+            randomIndex = Math.floor(Math.random() * currentIndex);
+            currentIndex -= 1;
+
+            // And swap it with the current element.
+            temporaryValue = playlist[currentIndex];
+            playlist[currentIndex] = playlist[randomIndex];
+            playlist[randomIndex] = temporaryValue;
+        }
+
+        playlist.map((playlistSong, i) => { if(playlistSong.active === true) { index = i; }});
+        playlist[index].active = false;
+        playlist[0].active = true;
+        this.songToPlay = playlist[0];
+        if (this.activePlaylist < 0) {
+            this.nowPlayingPlaylist = playlist;
+            this.savePlaylistToStorage(this.nowPlayingPlaylist);
         }
         this.emit(StreamingEvents.READY);
     },

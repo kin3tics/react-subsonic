@@ -47,6 +47,9 @@ var PlaylistControls = React.createClass({
         PlaylistStore.deletePlaylist(this.state.editingPlaylist.id);
         this.props.handleBackClick();
     },
+    handleShufflePlaylist() {
+        actions.playlistShuffle();
+    },
     playlistsFetched() {
         var playlists = PlaylistStore.getServerPlaylists();
         this.setState({
@@ -71,6 +74,9 @@ var PlaylistControls = React.createClass({
                 <span className="icon icon-chevron-left clickable playlist-back-btn" onClick={this.props.handleBackClick}></span>
                 <div className="playlist-title">Playlist Settings</div>
                 <div className="playlist-list-container scrollable"><div>
+                    <div className="clickable" onClick={this.handleShufflePlaylist}>
+                        <span className="icon icon-shuffle"></span><span> Shuffle Current Playlist</span>
+                    </div>
                     <span className="icon icon-create"></span><span> Create New</span>
                     <div className="new-playlist input-field">
                       <input id="playlist_name" type="text" value={this.state.newName} onChange={this.onNameChange} ref="newPlaylistInput" />

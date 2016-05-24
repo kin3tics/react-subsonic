@@ -586,7 +586,7 @@ a {
 
 
 /* Media Query Overrides */
-@media screen and (max-height: 700px) {
+@media screen and (max-height: 850px) {
     .album-selected {
         height: calc(100% - 120px);
     }

@@ -1,6 +1,9 @@
 This is a simple, yet elegant front-end to subsonic written in React.
 
 Version History
+0.3.4
+    - Playlists
+        Shuffle current playing playlist
 0.3.3
     - Bugfix
         Drag 'n' Drop in playlist reordering works again

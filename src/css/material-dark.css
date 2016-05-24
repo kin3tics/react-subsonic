@@ -207,6 +207,9 @@ input:-webkit-autofill:focus {
 .icon-search-2 {
     background-image: url(../img/navigation/ic_search_black_24dp.png);
 }
+.icon-shuffle {
+    background-image: url(../img/av/ic_shuffle_white_24dp.png);
+}
 
 .album-list > a:nth-child(5n + 0) > div,
 .search-results-albums  a:nth-child(5n + 0) > div {
