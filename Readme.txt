@@ -71,11 +71,11 @@ Version History
 TODOs
 
 Bugs
+ - Now Playing song in playlist view is not colored when moving to another queued up album
  - When page reloads: "Cannot read property 'artistId' of null"
  - When playlist finishes: "Cannot read property 'artistId' of null
 
 High Priority
- - Client-side Playlist Randomizer
  - Server-side Random Songs
  - Use Get/Save Play Queue API endpoints
  

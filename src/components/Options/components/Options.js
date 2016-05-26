@@ -3,6 +3,8 @@ var actions = require('../../../actions/UserActions');
 //Stores
 var UserStore = require('../../../stores/UserStore');
 
+var ColorScheme = require('./ColorScheme');
+
 var Options = React.createClass({
     //transitionHook: null,
     getInitialState () {
@@ -50,8 +52,11 @@ var Options = React.createClass({
     },
     render() {
         var settings = this.state.settings;
+        var { content } = this.props;
         return (
             <div className="settings-container">
+                { content ? content : (
+                <div>
                 <h5>Server Settings</h5>
                 <div className="server-settings-container"><div className="input-field">
                     <input defaultValue={settings.API} id="server_url" type="text" onChange={this.onUrlChange} />
@@ -67,7 +72,10 @@ var Options = React.createClass({
                 </div>
                 <a className="waves-effect waves-light btn" onClick={this.saveSettings}>Update</a>
                 </div>
+                </div>
+                ) }
             </div>
+            
         );
     } 
 });

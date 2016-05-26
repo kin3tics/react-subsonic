@@ -27,5 +27,17 @@ module.exports = {
         LibraryEvents: {
             SEARCHRETURNED: "library.searchreturned"
         }
+    },
+    DefaultColorScheme: {
+        MenuSidebar: {
+            BackgroundColor: '#202020',
+            FontColor: '#DDDDDD',
+            MenuItem: {
+                BackgroundColor: null,
+                FontColor: null,
+                HoverBackgroundColor: 'DDDDDD',
+                HoverFontColor: '444444'
+            }
+        }
     }
 }

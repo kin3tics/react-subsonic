@@ -172,11 +172,13 @@ a {
 }
 
 .search-wrapper {
+    border-radius: 2px;
     padding: 10px;
     width: calc(100% - 20px);
     margin-left: auto;
     margin-right: auto;
     margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .search-wrapper input {
@@ -348,11 +350,23 @@ a {
 
 .song-title {
     display: inline-block;
-    width: calc(100% - 108px);
+    width: 100%;
     overflow: hidden;
     white-space: nowrap;
     position: absolute;
     text-overflow: ellipsis;
+}
+
+.playlist .song-title {
+    width: calc(100% - 60px);
+}
+
+.search-results-container .song-title {
+    width: calc(100% - 95px);
+}
+
+.album-details .song-title {
+    width: calc(100% - 108px);
 }
 
 .song-duration {

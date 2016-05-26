@@ -4,7 +4,9 @@ var UserActions = flux.createActions([
     //SettingsActions
     'loadSettings',
     'saveSettings',
-    'pingReturn'
+    'pingReturn',
+    'loadColorScheme',
+    'saveColorScheme'
 ]);
 
 module.exports = UserActions;
