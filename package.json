@@ -3,14 +3,11 @@
   "version": "0.3.1",
   "description": "A simple and elegant front-end to Subsonic using React",
   "main": "webpack.config.js",
-  "author": {
-    "name": "Jeremy Dunn",
-    "email": "kin3tics@gmail.com"
-  },
-  "license": "GPL",
+  "author": "Jeremy Dunn <kin3tics@gmail.com>",
+  "license": "GPL-3.0",
   "repository": {
     "type": "git",
-    "url": "git://github.com/kin3tics/react-subsonic"
+    "url": "git://github.com/kin3tics/react-subsonic.git"
   },
   "scripts": {
     "start": "webpack-dev-server --inline --content-base src"
@@ -33,5 +30,9 @@
     "webpack": "^1.13.1",
     "webpack-dev-server": "^1.14.1"
   },
-  "devDependencies": {}
+  "devDependencies": {},
+  "bugs": {
+    "url": "https://github.com/kin3tics/react-subsonic/issues"
+  },
+  "homepage": "https://github.com/kin3tics/react-subsonic#readme"
 }

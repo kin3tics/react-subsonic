@@ -54,6 +54,13 @@ a {
     text-decoration: none;
 }
 
+button {
+    padding: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+}
+
 .row {
     margin-left: auto;
     margin-right: auto;
@@ -171,7 +178,8 @@ a {
     height: 75px;
 }
 
-.search-wrapper {
+.search-wrapper,
+.input-wrapper {
     padding: 10px;
     width: calc(100% - 20px);
     margin-left: auto;
@@ -179,13 +187,19 @@ a {
     margin-top: 10px;
 }
 
-.search-wrapper input {
+.input-wrapper {
+    margin-bottom: 10px;
+}
+
+.search-wrapper input,
+.input-wrapper input {
     background-color: transparent;
     border: none;
     width: calc(100% - 24px);
 }
 
-.search-wrapper input:focus {
+.search-wrapper input:focus,
+.input-wrapper input:focus {
     outline: none;
 }
 

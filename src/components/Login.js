@@ -94,20 +94,27 @@ var Login = React.createClass({
         return (
         <form action="#">
           <div className="login-panel">
-            <div className="error">{error}</div>
-            <div className="input-field">
-                <input defaultValue={settings.API} id="server_url" type="text" onChange={this.onUrlChange} />
-                <label className="active" htmlFor="server_url">Server URL</label>
+            <div>
+                <label htmlFor="server_url">Server URL</label>
+                <div className="input-wrapper">
+                    <input defaultValue={settings.API} id="server_url" type="text" onChange={this.onUrlChange} />
+                </div>
             </div>
-            <div className="input-field">
-                <input defaultValue={settings.APIUser} id="user_name" type="text" onChange={this.onUserChange} />
-                <label className="active" htmlFor="user_name">Username</label>
+            <div>
+                <label htmlFor="user_name">Username</label>
+                <div className="input-wrapper">
+                    <input defaultValue={settings.APIUser} id="user_name" type="text" onChange={this.onUserChange} />
+                </div>
             </div>
-            <div className="input-field">
-                <input defaultValue={settings.APIPass} id="password" type="password" onChange={this.onPasswordChange} />
-                <label className="active" htmlFor="passwords">Password</label>
+            <div>
+                <label htmlFor="password">Password</label>
+                <div className="input-wrapper">
+                    <input defaultValue={settings.APIPass} id="password" type="password" onChange={this.onPasswordChange} />
+                </div>
             </div>
-            <a className={buttonClass} onClick={this.handleLogin}>Login</a>{spinner}
+            <div style={{textAlign:'right'}}>
+                <button onClick={this.handleLogin}>Login</button>
+            </div>
           </div>
         </form>
         );

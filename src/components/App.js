@@ -47,7 +47,7 @@ var App = React.createClass({
     render () {
         var { content, sidebarLeft } = this.props;
         var settings = this.state.settings;
-        if (settings === null || !settings.valid || this.state.loggingIn) {
+        if (settings === null || !settings.valid) {
             return (
                 <Login settings={settings} loggingIn={this.state.loggingIn} />
             );
